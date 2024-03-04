@@ -29,3 +29,7 @@ Console.WriteLine("Qual é o seu nome?");
 nome = Console.ReadLine();
 string resultado = $"Oi, {nome}";
 Console.WriteLine(resultado);
+
+// Escreva um programa em C# que sirva como uma ficha cadastral. Tente caprichar no layout. A ficha deve coletar
+// alguns dados do usuário: nome, e-mail, data de nascimento, gênero, endereço separado por CEP, rua, n º, bairro, cidade, UF e país.
+// ao coletar os dados, monte um texto exibindo a ficha cadastral do usuário. 
