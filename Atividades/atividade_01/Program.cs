@@ -41,3 +41,4 @@ Console.Clear();
 Console.WriteLine("------------ Dados do Usuário ------------\n");
 Console.WriteLine($"Nome: {nome}\nData de nascimento: {datanasc}\nGênero: {genero}\nE-mail: {email}\n\nEndereço: {endereco}");
 Console.WriteLine("\n------------------------------------------");
+
