@@ -17,6 +17,7 @@ address1.City = "Videira";
 address1.FederalState = "Santa Catarina";
 address1.Country = "Brasil";
 address1.ZipCode = "89564-072";
+address1.AddressType = AddressType.Commercial;
 
 c1.Addresses.Add(address1);
 
@@ -32,6 +33,7 @@ foreach(var ad in c1.Addresses){
     Console.WriteLine($"Estado: {ad.FederalState}");
     Console.WriteLine($"País: {ad.Country}");
     Console.WriteLine($"CEP: {ad.ZipCode}");
+    Console.WriteLine($"Tipo: {ad.AddressType}");
 }
 
 
