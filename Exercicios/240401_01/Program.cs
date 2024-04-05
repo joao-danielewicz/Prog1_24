@@ -38,5 +38,4 @@ foreach (var cliente in clientes){
     Console.WriteLine($"E-mail: {cliente.EmailAddress}");
     Console.WriteLine($"Endereço de trabalho: {cliente.WorkAddress}");
     Console.WriteLine($"Endereço residencial: {cliente.HomeAddress}");
-    Console.WriteLine();
 }
