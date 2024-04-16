@@ -22,5 +22,8 @@ namespace _240415_01.Repository
             }
             return null;
         }
+        public List<Customer> RetrieveAll(){
+            return DataSet.Customers;
+        }
     }
 }

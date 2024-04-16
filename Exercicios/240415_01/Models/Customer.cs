@@ -5,14 +5,14 @@ namespace _240415_01.Models
         public int CustomerId {get; set;} = 0;
         public string Name {get; set;} = "Não definido";
         public string EmailAddress {get; set;} = "Não definido";
-        public List<Address> Addresses {get; set;} = null;
+        public List<Address> Addresses {get; set;} = new();
         public Customer(){}
         public Customer(int id){
             CustomerId = id;
         }
-        public Customer(int id, string nome, string email){
+        public Customer(int id, string name, string email){
             CustomerId = id;
-            Name = nome;
+            Name = name;
             EmailAddress = email;
         }
 

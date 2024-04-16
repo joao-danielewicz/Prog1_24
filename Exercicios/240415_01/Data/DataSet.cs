@@ -8,11 +8,13 @@ namespace _240415_01.Data
 {
     public class DataSet
     {
-        public static List<Address> Addresses { get; set; }
-        public static List<Customer> Customers { get; set; }
-        public static List<Product> Products { get; set; }
-        public static List<Order> Orders { get; set; }
-        public static List<OrderItem> OrderItems { get; set; }
+        // Esta classe funciona como um "banco de dados" virtual.
+        // Os repositórios dos modelos têm métodos que salvam e retornam os objetos contidos nas listas abaixo.
+        public static List<Address> Addresses { get; set; } = new();
+        public static List<Customer> Customers { get; set; } = new();
+        public static List<Product> Products { get; set; } = new();
+        public static List<Order> Orders { get; set; } = new();
+        public static List<OrderItem> OrderItems { get; set; } = new();
 
     }
 }
