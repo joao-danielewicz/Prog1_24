@@ -13,7 +13,7 @@ c2.EmailAddress = "samila@papelariaceysa.com";
 c2.WorkAddress = "Secretaria de Sobrancelhas";
 c2.HomeAddress = "Casa da Neli";
 
-Customer c3 = new Customer(){
+Customer c3 = new Customer{
     CustomerId = 3,
     Name = "Boi",
     EmailAddress = "boi@dolfoenterprises.com",
