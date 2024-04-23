@@ -15,7 +15,7 @@ namespace _240422_01.Views
         }
         public void Init(){
             bool aux = true;
-
+            int customerId = 1;
             do{
                 Console.WriteLine("*************\n"+
                 "MENU DO CONSUMIDOR\n"+
@@ -32,7 +32,6 @@ namespace _240422_01.Views
                     opcao = Convert.ToInt32(Console.ReadLine());
                     CustomerRepository cr = new();
                     Customer customer = new();
-                    int customerId = 1;
 
                     switch(opcao){
                         case 0:
@@ -54,6 +53,17 @@ namespace _240422_01.Views
                             Thread.Sleep(5000);
                             break;
                         case 3:
+                            List<Customer> allCustomers = cr.RetrieveAll();
+                            Console.Clear();
+                            Console.WriteLine("***************\nLISTA DE CLIENTES");
+                            foreach(Customer consumidor in allCustomers){
+                                Console.WriteLine("***************");
+                                Console.WriteLine("ID: "+consumidor.CustomerId);
+                                Console.WriteLine("Nome: "+consumidor.Name);
+                                Console.WriteLine("E-mail: "+consumidor.EmailAddress);
+                            }
+                            Console.ReadLine();
+                            break;
                         default:
                             Console.WriteLine("Opção inválida.");
                             aux = true;

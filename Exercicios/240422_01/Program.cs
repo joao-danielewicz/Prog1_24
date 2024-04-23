@@ -27,6 +27,12 @@ do{
             case 1:
                 CustomerView cv = new CustomerView();
                 break;
+            case 2:
+                ProductView pv = new ProductView();
+                break;
+            case 3:
+                OrderView ov = new OrderView();
+                break;
 
             case 0:
                 aux = false;
