@@ -4,7 +4,6 @@ using _240415_01.Models;
 using _240415_01.Repository;
 
 CustomerRepository cr = new CustomerRepository();
-Console.WriteLine("banana");
 
 Customer customer1 = new(
     1,
@@ -17,7 +16,7 @@ customer1.Addresses.Add(new(
 
 
 Customer customer2 = new Customer(2);
-customer2.Name = "Josy";
+customer2.Name = "José";
 
 cr.Save(customer1);
 cr.Save(customer2);
