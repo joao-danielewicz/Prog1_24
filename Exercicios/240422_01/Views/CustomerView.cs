@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using _240422_01.Models;
 using _240422_01.Repository;
+using _240422_01.Controllers;
 
 namespace _240422_01.Views
 {
@@ -38,11 +39,12 @@ namespace _240422_01.Views
                             aux = false;
                             break;
                         case 1:
+
                             Console.WriteLine("Informe o nome do consumidor:");
                             string? nome = Console.ReadLine();
                             Console.WriteLine("Informe o e-mail do consumidor:");
                             string? email = Console.ReadLine();
-                            cr.Save(new(customerId, nome, email));
+                            customer = new(customerId, nome, email);
                             customerId++;
                             break;
                         case 2:
