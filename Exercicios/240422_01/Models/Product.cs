@@ -6,14 +6,19 @@ namespace _240422_01.Models
         public string? ProductName {get; set;}
         public string? Description {get; set;}
         public float CurrentPrice {get; set;}
+
+        public Product(){}
+        public Product(int productId, string? productName, string? description, float currentPrice) {
+            ProductId = productId;
+            ProductName = productName;
+            Description = description;
+            CurrentPrice = currentPrice;
+        }
+        
         public bool Validate(){
-            return true;
-        }
-        public Product Retrieve(){
-            return new Product(); //retorno encapsulado, retorna o próprio objeto
-        }
-        public void Save(Product product){
-            
+            var isValid = true;
+            if(string.IsNullOrWhiteSpace(ProductName)) isValid = false;
+            return isValid;
         }
     }
 }

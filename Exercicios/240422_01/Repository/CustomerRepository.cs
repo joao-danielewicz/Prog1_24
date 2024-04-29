@@ -22,13 +22,19 @@ namespace _240422_01.Repository
             }
             return null;
         }
-
-
-
-
         
         public List<Customer> RetrieveAll(){
             return DataSet.Customers;
+        }
+
+        public List<Customer> SearchBy(string SearchTerm){
+            List<Customer> customers = new();
+            foreach(var c in DataSet.Customers){
+                if(c.Name.ToLower().Contains(SearchTerm.ToLower())){
+                    customers.Add(c);
+                }
+            }
+            return customers;
         }
     }
 }

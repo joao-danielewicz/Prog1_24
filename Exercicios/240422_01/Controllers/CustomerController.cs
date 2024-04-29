@@ -18,12 +18,16 @@ namespace _240422_01.Controllers
             customerRepository.Save(customer);
         }
 
+        public List<Customer> Get(){
+            return customerRepository.RetrieveAll();
+        }
         public Customer Get(int id){
             return customerRepository.Retrieve(id);
         }
 
-        public List<Customer> Get(){
-            return customerRepository.RetrieveAll();
+        public List<Customer> Get(string SearchTerm){
+            return customerRepository.SearchBy(SearchTerm);
         }
+
     }
 }

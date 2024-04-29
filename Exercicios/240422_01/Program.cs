@@ -12,7 +12,7 @@ bool aux = true;
 do{
     Console.WriteLine("*************\n"+
     "Cadastro de Pedidos!!!\n"+
-    "*************\n");
+    "*************");
 
     Console.WriteLine("Opções - Escolha uma:\n"+
     "1 - Consumidor\n"+
@@ -40,12 +40,10 @@ do{
                 Thread.Sleep(2000);
                 break;
             default:
-                Console.WriteLine("Opção inválida. Tente novamente");
                 break;
         }
     }catch{
         opcao = -1;
-        Console.WriteLine("Opção inválida. Tente novamente");
     }
     Console.Clear();
 }while(aux);

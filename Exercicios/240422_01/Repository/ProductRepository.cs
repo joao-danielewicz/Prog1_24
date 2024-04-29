@@ -20,5 +20,9 @@ namespace _240422_01.Repository
             }
             return null;
         }
+
+        public List<Product> RetrieveAll(){
+            return DataSet.Products;
+        }
     }
 }
