@@ -99,6 +99,7 @@ namespace _240429_01.Views
             }while(aux);
         }
         private void InsertCustomer(){
+            Customer customer = new();
             Console.WriteLine("Informe o nome do consumidor:");
             string? nome = Console.ReadLine();
 
@@ -111,7 +112,7 @@ namespace _240429_01.Views
             try{
                 aux = Convert.ToInt32(Console.ReadLine());
                 if(aux==1){
-                    .Addresses.Add(addressView.Insert());
+                    customer.Addresses.Add(addressView.Insert());
                 }else if(aux==2){
                     break;
                 }else{
