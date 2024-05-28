@@ -12,12 +12,18 @@ namespace _240527_01.Utils
         public static bool SaveToDelimitedTxt(string fileName, string fileContent){
             string filePath = @$"{dir}\{fileName}";
 
-            if(!Directory.Exists(dir)){
-                Directory.CreateDirectory(dir);
+            try{
+
+                if(!Directory.Exists(dir)){
+                    Directory.CreateDirectory(dir);
+                }
+                
+                using(StreamWriter sw = File.CreateText(filePath)){
+                    sw.Write(fileContent);
+                }
             }
-            
-            using(StreamWriter sw = File.CreateText(filePath)){
-                sw.Write(fileContent);
+            catch{
+                return false;
             }
 
             return true;

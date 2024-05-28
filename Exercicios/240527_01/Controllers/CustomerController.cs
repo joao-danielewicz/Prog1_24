@@ -30,7 +30,7 @@ namespace _240527_01.Controllers
             return customerRepository.SearchBy(SearchTerm);
         }
 
-        public void ExportToDelimited(){
+        public bool ExportToDelimited(){
             List<Customer> list = Get();
 
             string fileContent = string.Empty;
@@ -39,7 +39,7 @@ namespace _240527_01.Controllers
             }
 
             string fileName = $"Customer_{DateTimeOffset.Now.ToUnixTimeSeconds()}.txt";
-            ExportToFile.SaveToDelimitedTxt(fileName, fileContent);
+            return ExportToFile.SaveToDelimitedTxt(fileName, fileContent);
         }
 
     }

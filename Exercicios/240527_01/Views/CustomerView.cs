@@ -49,7 +49,12 @@ namespace _240527_01.Views
                             ListCustomers();
                             break;
                         case 4:
-                            customerController.ExportToDelimited();
+                            if(customerController.ExportToDelimited()){
+                                Console.WriteLine("Arquivo gerado com sucesso.");
+                            }else{
+                                Console.WriteLine("Erro ao salvar o arquivo.");
+                            }
+                            Thread.Sleep(3000);
                             break;
                         case 0:
                             aux = false;
@@ -163,8 +168,5 @@ namespace _240527_01.Views
         private void PrintCustomerData(Customer customer){
             Console.WriteLine(customer.ToString());
         }
-
-
-
     }       
 }
