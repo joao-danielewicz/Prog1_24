@@ -1,4 +1,4 @@
-namespace _240527_01.Models
+namespace _240603_01.Models
 {
     public class Product
     {

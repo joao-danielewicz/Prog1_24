@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace _240527_01.Views
+namespace _240603_01.Views
 {
     public class OrderView{
         public OrderView(){

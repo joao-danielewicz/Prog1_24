@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
-using _240527_01.Controllers;
-using _240527_01.Models;
+using _240603_01.Controllers;
+using _240603_01.Models;
 
-namespace _240527_01.Views
+namespace _240603_01.Views
 {
     public class ProductView{
         public ProductView(){
