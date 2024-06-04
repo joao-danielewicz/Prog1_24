@@ -32,6 +32,7 @@ namespace _240603_01.Views
                 "2 - Pesquisar consumidor\n"+
                 "3 - Listar todos os consumidores\n"+
                 "4 - Exportar dados delimitados\n"+
+                "5 - Importar dados delimitados\n"+
                 "0 - Sair");
 
                 int opcao = 0;
@@ -56,6 +57,10 @@ namespace _240603_01.Views
                             }
                             Thread.Sleep(3000);
                             break;
+                        case 5:
+                            ImportFromDelimited();
+                            Thread.Sleep(3000);
+                            break;
                         case 0:
                             aux = false;
                             break;
@@ -69,6 +74,17 @@ namespace _240603_01.Views
 
             Console.Clear();
             }while(aux);
+        }
+        
+        private void ImportFromDelimited(){
+            Console.WriteLine("Informe o caminho do arquivo: ");
+            string filePath = Console.ReadLine();
+            Console.WriteLine("Informe o caractere delimitador: ");
+            string delimiter = Console.ReadLine();
+
+            string response = customerController.ImportFromDelimited(filePath, delimiter);
+
+            Console.WriteLine(response);
         }
         private void InsertCustomer(){
             Customer customer = new Customer();
