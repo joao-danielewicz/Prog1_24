@@ -128,9 +128,9 @@ namespace _240513_01.Views
                 Console.WriteLine("Não há nenhum consumidor o ID "+id);
             }
         }
-        private void ShowCustomerByName(string name){
+        private void ListCustomers(){
             Console.Clear();
-            List<Customer> result = customerController.Get(name);
+            List<Customer> result = customerController.Get();
             if(result == null || result.Count == 0){
                 Console.WriteLine("Nenhum cliente encontrado.");
                 Console.ReadLine();
@@ -142,9 +142,9 @@ namespace _240513_01.Views
                     Console.ReadLine();
             }
         }
-        private void ListCustomers(){
+        private void ShowCustomerByName(string name){
             Console.Clear();
-            List<Customer> result = customerController.Get();
+            List<Customer> result = customerController.Get(name);
             if(result == null || result.Count == 0){
                 Console.WriteLine("Nenhum cliente encontrado.");
                 Console.ReadLine();
