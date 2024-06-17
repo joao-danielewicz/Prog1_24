@@ -18,6 +18,7 @@ namespace _240603_01.Repository
         public void Save(Customer customer, bool autoGenerateId = true){
             if(autoGenerateId)
                 customer.CustomerId = this.GetNextId();
+            
             DataSet.Customers.Add(customer);
         }
 

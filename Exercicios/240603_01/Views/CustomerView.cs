@@ -12,7 +12,6 @@ namespace _240603_01.Views
 {
     public class CustomerView
     {
-        int customerId = 1;
         private CustomerController customerController;
         private AddressView addressView;
         public CustomerView(){
@@ -115,7 +114,6 @@ namespace _240603_01.Views
 
             }while(aux!=2);
             customerController.Insert(customer);
-            customerId++;
         }
         private void SearchCustomer(){
             Console.Clear();

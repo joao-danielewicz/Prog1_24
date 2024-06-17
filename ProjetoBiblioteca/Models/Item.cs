@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoBiblioteca.Models{
     public class Item{
-        public int ItemId {get; set; }
+        public int ItemId {get; set; } = 0;
         public string Titulo {get; set; }  = "Não Definido";
         public string Autor {get; set; } = "Não Definido";
         public string Genero {get; set; } = "Não Definido";
@@ -36,6 +36,11 @@ namespace ProjetoBiblioteca.Models{
             QtdTotal = qtdTotal;
             QtdDisponivel = qtdDisponivel;
             LocadoraId = locadoraId;
+        }
+
+        public override string ToString()
+        {
+            return $"{ItemId};{Titulo};{Autor};{Genero};{Tipo};{Estudio};{Lancamento};{DataCadastro};{QtdTotal};{QtdDisponivel};{LocadoraId};";
         }
     }
 }

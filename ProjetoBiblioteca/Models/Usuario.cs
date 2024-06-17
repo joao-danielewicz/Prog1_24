@@ -7,7 +7,7 @@ namespace ProjetoBiblioteca.Models
 {
     public class Usuario
     {
-        public int UsuarioId { get; set; }
+        public int UsuarioId { get; set; } = 0;
         public string Nome { get ; set; } = "Não definido";
         public int LocadoraId { get; set; }
 
@@ -17,9 +17,16 @@ namespace ProjetoBiblioteca.Models
             UsuarioId = usuarioId;
         }
 
-        public Usuario(string nome, int locadoraId){
+        public Usuario(int usuarioId, string nome, int locadoraId){
+            UsuarioId = usuarioId;
             Nome = nome;
             LocadoraId = locadoraId;
         }
+
+        public override string ToString()
+        {
+            return $"{UsuarioId};{Nome};{LocadoraId}";
+        }
     }
 }
+
