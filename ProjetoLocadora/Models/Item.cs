@@ -24,17 +24,17 @@ namespace ProjetoLocadora.Models{
             ItemId = itemId;
         }
 
-        public Item(int itemId, string titulo, string diretor, string genero, int tipoMidia, string estudio, DateTime lancamento, DateTime dataCadastro, int qtdTotal, int qtdDisponivel, int locadoraId){
+        public Item(int itemId, string titulo, string diretor, string genero, TiposMidia tipoMidia, string estudio, DateTime lancamento, DateTime dataCadastro, int qtdTotal, int locadoraId){
             ItemId = itemId;
             Titulo = titulo;
             Diretor = diretor;
             Genero = genero;
-            Tipo = (TiposMidia)tipoMidia;
+            Tipo = tipoMidia;
             Estudio = estudio;
             Lancamento = lancamento;
             DataCadastro = dataCadastro;
             QtdTotal = qtdTotal;
-            QtdDisponivel = qtdDisponivel;
+            QtdDisponivel = qtdTotal;
             LocadoraId = locadoraId;
         }
 

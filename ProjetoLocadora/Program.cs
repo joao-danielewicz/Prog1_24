@@ -1,3 +1,7 @@
 ﻿using ProjetoLocadora.Views;
+using ProjetoLocadora.Models;
+using ProjetoLocadora.Controllers;
 
-ItemView ic = new ItemView();
+ItemView iv = new ItemView();
+
+
