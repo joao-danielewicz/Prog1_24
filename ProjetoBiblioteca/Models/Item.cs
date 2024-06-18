@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjetoBiblioteca.Models{
+namespace ProjetoLocadora.Models{
     public class Item{
         public int ItemId {get; set; } = 0;
         public string Titulo {get; set; }  = "Não Definido";

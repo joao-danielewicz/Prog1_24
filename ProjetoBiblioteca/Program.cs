@@ -1,5 +1,5 @@
-﻿using ProjetoBiblioteca.Models;
-using ProjetoBiblioteca.Controllers;
+﻿using ProjetoLocadora.Models;
+using ProjetoLocadora.Controllers;
 
 // ItemController ic = new ItemController();
 

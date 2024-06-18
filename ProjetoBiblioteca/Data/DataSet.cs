@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProjetoBiblioteca.Models;
+using ProjetoLocadora.Models;
 
-namespace ProjetoBiblioteca.Data
+namespace ProjetoLocadora.Data
 {
     public class DataSet
     {

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProjetoBiblioteca.Models;
-using ProjetoBiblioteca.Data;
+using ProjetoLocadora.Models;
+using ProjetoLocadora.Data;
 
-namespace ProjetoBiblioteca.Repository
+namespace ProjetoLocadora.Repository
 {
     public class LocadoraRepository{
         public void Create(Locadora locadora, bool autoGenerateId = true){

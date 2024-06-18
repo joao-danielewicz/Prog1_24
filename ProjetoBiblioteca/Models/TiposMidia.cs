@@ -1,4 +1,4 @@
-namespace ProjetoBiblioteca.Models{
+namespace ProjetoLocadora.Models{
     public enum TiposMidia : byte {
         None = 0b_0000_0000,
         Filme = 0b_0000_0001,

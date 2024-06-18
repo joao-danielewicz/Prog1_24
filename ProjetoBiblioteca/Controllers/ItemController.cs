@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProjetoBiblioteca.Models;
-using ProjetoBiblioteca.Repository;
+using ProjetoLocadora.Models;
+using ProjetoLocadora.Repository;
 
-namespace ProjetoBiblioteca.Controllers
+namespace ProjetoLocadora.Controllers
 {
     public class ItemController
     {
