@@ -18,6 +18,9 @@ namespace ProjetoLocadora.Controllers
         public void Insert(Item item){
             ir.Create(item);
         }
+        public Item Retrieve(int id){
+            return ir.Read(id);
+        }
         public List<Item> RetrieveAll(){
             return ir.Read();
         }

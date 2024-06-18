@@ -7,7 +7,7 @@ namespace ProjetoLocadora.Models{
     public class Item{
         public int ItemId {get; set; } = 0;
         public string Titulo {get; set; }  = "Não Definido";
-        public string Autor {get; set; } = "Não Definido";
+        public string Diretor {get; set; } = "Não Definido";
         public string Genero {get; set; } = "Não Definido";
         public TiposMidia Tipo {get; set; } = 0;
         public string Estudio {get; set; } = "Não Definido";
@@ -24,12 +24,12 @@ namespace ProjetoLocadora.Models{
             ItemId = itemId;
         }
 
-        public Item(int itemId, string titulo, string autor, string genero, TiposMidia tipo, string estudio, DateTime lancamento, DateTime dataCadastro, int qtdTotal, int qtdDisponivel, int locadoraId){
+        public Item(int itemId, string titulo, string diretor, string genero, int tipoMidia, string estudio, DateTime lancamento, DateTime dataCadastro, int qtdTotal, int qtdDisponivel, int locadoraId){
             ItemId = itemId;
             Titulo = titulo;
-            Autor = autor;
+            Diretor = diretor;
             Genero = genero;
-            Tipo = tipo;
+            Tipo = (TiposMidia)tipoMidia;
             Estudio = estudio;
             Lancamento = lancamento;
             DataCadastro = dataCadastro;
@@ -40,7 +40,7 @@ namespace ProjetoLocadora.Models{
 
         public override string ToString()
         {
-            return $"{ItemId};{Titulo};{Autor};{Genero};{Tipo};{Estudio};{Lancamento};{DataCadastro};{QtdTotal};{QtdDisponivel};{LocadoraId};";
+            return $"{ItemId};{Titulo};{Diretor};{Genero};{Tipo};{Estudio};{Lancamento};{DataCadastro};{QtdTotal};{QtdDisponivel};{LocadoraId};";
         }
     }
 }
