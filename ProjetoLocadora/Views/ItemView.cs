@@ -79,16 +79,26 @@ namespace ProjetoLocadora.Views
                     }
                     item.Tipo = (TiposMidia)tipoMidia;
 
-                    WriteLine("Qual o estúdio responsável pela gravação.");
+                    WriteLine("Qual o estúdio responsável pela gravação?");
                     item.Estudio = ReadLine();
-                    WriteLine("Informe a data de lançamento.");
-                    Write("Ano: ");
-                    int ano = Convert.ToInt32(ReadLine());
-                    Write("Mês: ");
-                    int mes = Convert.ToInt32(ReadLine());
-                    Write("Dia: ");
-                    int dia = Convert.ToInt32(ReadLine());
-                    item.Lancamento = new DateTime(ano, mes, dia);
+
+                    aux = 0;
+                    do{
+                        try{
+                            WriteLine("Informe a data de lançamento.");
+                            Write("Ano: ");
+                            int ano = Convert.ToInt32(ReadLine());
+                            Write("Mês: ");
+                            int mes = Convert.ToInt32(ReadLine());
+                            Write("Dia: ");
+                            int dia = Convert.ToInt32(ReadLine());
+                            item.Lancamento = new DateTime(ano, mes, dia);
+                            aux = 1;
+                        }catch{
+                            WriteLine("Erro. Tente novamente.");
+                            aux = 0;
+                        }
+                    }while(aux==0);
 
                     WriteLine("Quantas unidades deste item estarão disponíveis?");
                     item.QtdTotal = Convert.ToInt32(ReadLine());
