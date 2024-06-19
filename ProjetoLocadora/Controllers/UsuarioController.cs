@@ -33,7 +33,5 @@ namespace ProjetoLocadora.Controllers
         public void Update(Usuario usuario){
             ur.Update(usuario);
         }
-
-
     }
 }
