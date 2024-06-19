@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProjetoLocadora.Models;
 using ProjetoLocadora.Data;
+using System.Reflection.Metadata;
 
 namespace ProjetoLocadora.Repository
 {
@@ -14,7 +15,7 @@ namespace ProjetoLocadora.Repository
 
             DataSet.Itens.Add(item);
         }
-        public Item Read(int id){
+        public Item? Read(int id){
             foreach(var item in DataSet.Itens){
                 if(item.ItemId == id){
                     return item;
@@ -39,7 +40,7 @@ namespace ProjetoLocadora.Repository
             Create(item, false);
         }
         public bool Delete(int id){
-            Item item = DataSet.Itens.Find(i => i.ItemId == id);
+            Item? item = DataSet.Itens.Find(i => i.ItemId == id);
             if(item != null){
                 DataSet.Itens.Remove(item);
                 return true;

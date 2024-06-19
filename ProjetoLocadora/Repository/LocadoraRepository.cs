@@ -14,13 +14,22 @@ namespace ProjetoLocadora.Repository
 
             DataSet.Locadoras.Add(locadora);
         }
-        public Locadora Read(int id){
+        public Locadora? Read(int id){
             foreach(var loc in DataSet.Locadoras){
                 if(loc.LocadoraId == id){
                     return loc;
                 }
             }
             return null;
+        }
+        public List<Locadora> Read(string termoBusca){
+            List<Locadora> locadoras = new();
+            foreach(var loc in Read()){
+                if(loc.Nome.ToLower().Contains(termoBusca.ToLower())){
+                    locadoras.Add(loc);
+                }
+            }
+            return locadoras;
         }
         public List<Locadora> Read(){
             return DataSet.Locadoras;
@@ -30,7 +39,7 @@ namespace ProjetoLocadora.Repository
             Create(locadora, false);
         }
         public bool Delete(int id){
-            Locadora locadora = DataSet.Locadoras.Find(i => i.LocadoraId == id);
+            Locadora? locadora = DataSet.Locadoras.Find(i => i.LocadoraId == id);
             if(locadora != null){
                 DataSet.Locadoras.Remove(locadora);
                 return true;

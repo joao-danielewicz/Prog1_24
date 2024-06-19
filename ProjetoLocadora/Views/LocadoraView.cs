@@ -8,15 +8,13 @@ using ProjetoLocadora.Utils;
 
 namespace ProjetoLocadora.Views
 {
-    public class ItemView{
-        private ItemController itemController;
-        private int LocadoraId;
+    public class LocadoraView{
+        private LocadoraController locadoraController;
         private Texto txt;
-        private string tituloMenu = "****** Menu dos Itens da Locadora ******";
-        public ItemView(int locadoraId){
-            itemController = new();
+        private string tituloMenu = "****** Menu das Locadoras ******";
+        public LocadoraView(){
+            locadoraController = new();
             txt = new();
-            LocadoraId = locadoraId;
             Init();
         }
         public void Init(){
@@ -36,13 +34,13 @@ namespace ProjetoLocadora.Views
 
                     switch(opcao){
                         case 1:
-                            InserirItem();
+                            InserirLocadora();
                             break;
                         case 2:
-                            AlterarItem();
+                            AlterarLocadora();
                             break;
                         case 3:
-                            RemoverItem();
+                            RemoverLocadora();
                             break;
                         case 4:
                             MenuPesquisa();
@@ -62,91 +60,55 @@ namespace ProjetoLocadora.Views
             }while(aux);
         }   
 
-        private Item FormularioItem(bool generateId = true, int id=0){
+        private Locadora FormularioLocadora(bool generateId = true, int id=0){
             bool aux = true;
-            Item item = new Item();
+            Locadora loc = new Locadora();
             if(!generateId)
-                item.ItemId = id;
+                loc.LocadoraId = id;
             do{
                 try{
-                    WriteLine("Informe o título da obra.");
-                    item.Titulo = ReadLine();
-                    WriteLine("Informe seu diretor.");
-                    item.Diretor = ReadLine();
-                    WriteLine("Informe o gênero.");
-                    item.Genero = ReadLine();
-                    WriteLine("Informe o título da obra.");
-                    WriteLine("Escolha uma opção para informar em qual dos tipos a mídia se encaixa.\n"+
-                    "1 - Filme\n"+
-                    "2 - Série\n"+
-                    "3 - Documentário\n"+
-                    "4 - Novela");
-                    int tipoMidia = Convert.ToInt32(ReadLine());
-                    if(tipoMidia>4){
-                        throw new Exception("");
-                    }
-                    item.Tipo = (TiposMidia)tipoMidia;
-
-                    WriteLine("Qual o estúdio responsável pela gravação?");
-                    item.Estudio = ReadLine();
-                    aux = true;
-                    do{
-                        try{
-                            WriteLine("Informe a data de lançamento.");
-                            Write("Ano: ");
-                            int ano = Convert.ToInt32(ReadLine());
-                            Write("Mês: ");
-                            int mes = Convert.ToInt32(ReadLine());
-                            Write("Dia: ");
-                            int dia = Convert.ToInt32(ReadLine());
-                            item.Lancamento = new DateTime(ano, mes, dia);
-                            aux = false;
-                        }catch{
-                            WriteLine("Erro. Tente novamente.");
-                            aux = true;
-                        }
-                    }while(aux==true);
-                    WriteLine("Quantas unidades deste item estarão disponíveis?");
-                    item.QtdTotal = Convert.ToInt32(ReadLine());
+                    WriteLine("Informe o nome da locadora.");
+                    loc.Nome = ReadLine();
+                    WriteLine("Informe sua localização.");
+                    loc.Localizacao = ReadLine();
                     aux = false;
                 }catch{
                     Clear();
                     WriteLine("Houve um erro. Cadastre novamente.");
                 }
             }while(aux==true);
-            return item;
+            return loc;
         }
-        private void InserirItem(){
-            Item item = FormularioItem();
-            item.LocadoraId = LocadoraId;
-            itemController.Insert(item);
+        private void InserirLocadora(){
+            Locadora loc = FormularioLocadora();
+            locadoraController.Insert(loc);
         }
-        private void AlterarItem(){
+        private void AlterarLocadora(){
             bool aux = true;
             int id=0;
-            Item item = new();
+            Locadora loc = new();
             do{
                 try{
-                    WriteLine("Informe o ID do item a ser alterado.");
+                    WriteLine("Informe o ID da locadora a ser alterada.");
                     id = Convert.ToInt32(ReadLine());
-                    item = FormularioItem(false, id);
+                    loc = FormularioLocadora(false, id);
                     break;
                 }catch{
                     WriteLine("Erro. Tente novamente.");
                 }
             }while(aux==true);
-            itemController.Update(item);
+            locadoraController.Update(loc);
         }
-        private void RemoverItem(){
+        private void RemoverLocadora(){
             bool aux = true;
-            WriteLine("Insira o ID do item a ser removido.\n Esta ação não pode ser desfeita.");
+            WriteLine("Insira o ID da locadora a ser removida.\n Esta ação não pode ser desfeita.");
             do{
                 try{
                     int id = Convert.ToInt32(ReadLine());
-                    if(itemController.Remove(id))
-                        WriteLine("Item removido com sucesso.");
+                    if(locadoraController.Remove(id))
+                        WriteLine("Locadora removida com sucesso.");
                     else
-                        WriteLine("Nenhum item com este ID foi encontrado.");
+                        WriteLine("Nenhuma locadora com este ID foi encontrada.");
                     aux=false;
                 }catch{
 
@@ -157,15 +119,15 @@ namespace ProjetoLocadora.Views
         private void ListarPorId(){
             bool aux = true;
             do{
-                WriteLine("Informe o ID do item a ser pesquisado.");
+                WriteLine("Informe o ID da locadora a ser pesquisada.");
                 try{
                     int id = Convert.ToInt32(ReadLine());
-                    Item item = itemController.Retrieve(id);
-                    if(item!=null){
-                        EscreverDados(item);
+                    Locadora loc = locadoraController.Retrieve(id);
+                    if(loc!=null){
+                        EscreverDados(loc);
                     }
                     else
-                        WriteLine("Não há nenhum item com este ID.");
+                        WriteLine("Não há nenhuma locadora com este ID.");
                 }catch{
                     WriteLine("Erro. Tente novamente.");
                 }
@@ -173,35 +135,35 @@ namespace ProjetoLocadora.Views
             }while(aux == true);
             ReadLine();
         }
-        private void ListarPorTitulo(){
+        private void ListarPorNome(){
             WriteLine("Informe o termo de busca a ser utilizado.");
             string? termoBusca = ReadLine();
-            List<Item> itens = itemController.Retrieve(termoBusca);
-            if(itens.Count==0 || itens == null){
-                WriteLine("Nenhum item encontrado.");
+            List<Locadora> locs = locadoraController.Retrieve(termoBusca);
+            if(locs.Count==0 || locs == null){
+                WriteLine("Nenhuma locadora encontrada.");
             }else{
-                foreach(Item item in itens){
-                    EscreverDados(item);
+                foreach(Locadora loc in locs){
+                    EscreverDados(loc);
                 }
             }
             ReadLine();
         }
         private void ListarTodos(){
-            List<Item> list = itemController.RetrieveAll();
+            List<Locadora> list = locadoraController.RetrieveAll();
             if(list.Count!=0){
                 foreach (var i in list){
                     EscreverDados(i);
                 }
             }else
-                WriteLine("Não há nenhum item para ser exibido.");
+                WriteLine("Não há nenhuma locadora para ser exibida.");
             WriteLine("Pressione enter para continuar...");
             ReadLine();
         }
         private void MenuPesquisa(){
             bool aux = true;
-            string[] menuListagem = {"1 - Mostrar todos",
+            string[] menuListagem = {"1 - Mostrar todas",
                 "2 - Pesquisar por ID",
-                "3 - Pesquisar por título",
+                "3 - Pesquisar por nome",
                 "0 - Voltar"};
 
             do{
@@ -217,7 +179,7 @@ namespace ProjetoLocadora.Views
                             ListarPorId();
                             break;
                         case 3:
-                            ListarPorTitulo();
+                            ListarPorNome();
                             break;
                         case 0:
                             aux = false;
@@ -233,8 +195,8 @@ namespace ProjetoLocadora.Views
             }while(aux);
         }
     
-        private void EscreverDados(Item item){
-            WriteLine(item.ToString());
+        private void EscreverDados(Locadora loc){
+            WriteLine(loc.ToString());
         }
     }
 }

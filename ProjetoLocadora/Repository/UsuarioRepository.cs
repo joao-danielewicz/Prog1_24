@@ -14,13 +14,22 @@ namespace ProjetoLocadora.Repository
 
             DataSet.Usuarios.Add(usuario);
         }
-        public Usuario Read(int id){
+        public Usuario? Read(int id){
             foreach(var usr in DataSet.Usuarios){
                 if(usr.UsuarioId == id){
                     return usr;
                 }
             }
             return null;
+        }
+        public List<Usuario> Read(string termoBusca){
+            List<Usuario> usuarios = new();
+            foreach(Usuario usr in Read()){
+                if(usr.Nome.ToLower().Contains(termoBusca.ToLower())){
+                    usuarios.Add(usr);
+                }
+            }
+            return usuarios;
         }
         public List<Usuario> Read(){
             return DataSet.Usuarios;
@@ -30,7 +39,7 @@ namespace ProjetoLocadora.Repository
             Create(usuario, false);
         }
         public bool Delete(int id){
-            Usuario usuario = DataSet.Usuarios.Find(i => i.UsuarioId == id);
+            Usuario? usuario = DataSet.Usuarios.Find(i => i.UsuarioId == id);
             if(usuario != null){
                 DataSet.Usuarios.Remove(usuario);
                 return true;

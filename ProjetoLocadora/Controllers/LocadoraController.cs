@@ -18,16 +18,20 @@ namespace ProjetoLocadora.Controllers
         public void Insert(Locadora Locadora){
             lr.Create(Locadora);
         }
+        public Locadora? Retrieve(int id){
+            return lr.Read(id);
+        }
+        public List<Locadora> Retrieve(string termoBusca){
+            return lr.Read(termoBusca);
+        }
         public List<Locadora> RetrieveAll(){
             return lr.Read();
         }
-        public void Remove(int id){
-            lr.Delete(id);
+        public bool Remove(int id){
+            return lr.Delete(id);
         }
         public void Update(Locadora locadora){
             lr.Update(locadora);
         }
-
-
     }
 }

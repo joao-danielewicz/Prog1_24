@@ -19,16 +19,14 @@ namespace ProjetoLocadora.Models
             LocadoraId = locadoraId;
         }
 
-        public Locadora(int locadoraId, string nome, string localizacao, int capacidade, int acervo){
+        public Locadora(int locadoraId, string nome, string localizacao){
             LocadoraId = locadoraId;
             Nome = nome;
             Localizacao = localizacao;
-            Capacidade = capacidade;
-            Acervo = acervo;
         }
 
         public override string ToString(){
-            return $"{LocadoraId};{Nome};{Localizacao};{Capacidade};{Acervo}";
+            return $"{LocadoraId};{Nome};{Localizacao}";
         }
     }
 }

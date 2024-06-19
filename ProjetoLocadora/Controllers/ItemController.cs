@@ -18,7 +18,7 @@ namespace ProjetoLocadora.Controllers
         public void Insert(Item item){
             ir.Create(item);
         }
-        public Item Retrieve(int id){
+        public Item? Retrieve(int id){
             return ir.Read(id);
         }
         public List<Item> Retrieve (string termoBusca){
@@ -33,7 +33,5 @@ namespace ProjetoLocadora.Controllers
         public void Update(Item item){
             ir.Update(item);
         }
-
-
     }
 }

@@ -2,6 +2,8 @@
 using ProjetoLocadora.Models;
 using ProjetoLocadora.Controllers;
 
-ItemView iv = new ItemView();
-
+while(1>0){
+    LocadoraView lv = new LocadoraView();
+    ItemView iv = new ItemView(Convert.ToInt32(ReadLine()));
+}
 
