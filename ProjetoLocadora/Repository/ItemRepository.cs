@@ -10,7 +10,7 @@ namespace ProjetoLocadora.Repository
     public class ItemRepository{
         public void Create(Item item, bool autoGenerateId = true){
             if(autoGenerateId)
-                item.ItemId = this.GetNextId();
+                item.ItemId = GetNextId();
 
             DataSet.Itens.Add(item);
         }
@@ -21,6 +21,15 @@ namespace ProjetoLocadora.Repository
                 }
             }
             return null;
+        }
+        public List<Item> Read(string termoBusca){
+            List<Item> itens = new();
+            foreach(var item in Read()){
+                if(item.Titulo.ToLower().Contains(termoBusca.ToLower())){
+                    itens.Add(item);
+                }
+            }
+            return itens;
         }
         public List<Item> Read(){
             return DataSet.Itens;

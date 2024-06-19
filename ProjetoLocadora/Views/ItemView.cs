@@ -15,7 +15,7 @@ namespace ProjetoLocadora.Views
         public ItemView(){
             itemController = new();
             txt = new();
-            this.Init();
+            Init();
         }
         public void Init(){
             bool aux = true;
@@ -23,10 +23,8 @@ namespace ProjetoLocadora.Views
                 "1 - Cadastrar",
                 "2 - Alterar",
                 "3 - Remover",
-                "4 - Mostrar todos",
-                "5 - Pesquisar por ID",
-                "0 - Sair"
-            };
+                "4 - Pesquisar...",
+                "0 - Sair"};
 
             do{
                 try{
@@ -39,7 +37,13 @@ namespace ProjetoLocadora.Views
                             InserirItem();
                             break;
                         case 2:
-                            MostrarTodos();
+                            AlterarItem();
+                            break;
+                        case 3:
+                            RemoverItem();
+                            break;
+                        case 4:
+                            MenuPesquisa();
                             break;
                         case 0:
                             aux = false;
@@ -55,12 +59,14 @@ namespace ProjetoLocadora.Views
             Thread.Sleep(1000);
             }while(aux);
         }   
-    
-        private void InserirItem(){
-            int aux = 0;
+
+        private Item FormularioItem(bool generateId = true, int id=0){
+            bool aux = true;
+            Item item = new Item();
+            if(!generateId)
+                item.ItemId = id;
             do{
                 try{
-                    Item item = new Item();
                     WriteLine("Informe o título da obra.");
                     item.Titulo = ReadLine();
                     WriteLine("Informe seu diretor.");
@@ -81,8 +87,7 @@ namespace ProjetoLocadora.Views
 
                     WriteLine("Qual o estúdio responsável pela gravação?");
                     item.Estudio = ReadLine();
-
-                    aux = 0;
+                    aux = true;
                     do{
                         try{
                             WriteLine("Informe a data de lançamento.");
@@ -93,31 +98,140 @@ namespace ProjetoLocadora.Views
                             Write("Dia: ");
                             int dia = Convert.ToInt32(ReadLine());
                             item.Lancamento = new DateTime(ano, mes, dia);
-                            aux = 1;
+                            aux = false;
                         }catch{
                             WriteLine("Erro. Tente novamente.");
-                            aux = 0;
+                            aux = true;
                         }
-                    }while(aux==0);
-
+                    }while(aux==true);
                     WriteLine("Quantas unidades deste item estarão disponíveis?");
                     item.QtdTotal = Convert.ToInt32(ReadLine());
-
-                    itemController.Insert(item);
-                    aux = 1;
+                    aux = false;
                 }catch{
                     Clear();
                     WriteLine("Houve um erro. Cadastre novamente.");
                 }
-            }while(aux==0);
+            }while(aux==true);
+            return item;
+        }
+        private void InserirItem(){
+            Item item = FormularioItem();
+            itemController.Insert(item);
+        }
+        private void AlterarItem(){
+            bool aux = true;
+            int id=0;
+            Item item = new();
+            do{
+                try{
+                    WriteLine("Informe o ID do item a ser alterado.");
+                    id = Convert.ToInt32(ReadLine());
+                    item = FormularioItem(false, id);
+                    break;
+                }catch{
+                    WriteLine("Erro. Tente novamente.");
+                }
+            }while(aux==true);
+            itemController.Update(item);
+        }
+        private void RemoverItem(){
+            bool aux = true;
+            WriteLine("Insira o ID do item a ser removido.\n Esta ação não pode ser desfeita.");
+            do{
+                try{
+                    int id = Convert.ToInt32(ReadLine());
+                    if(itemController.Remove(id))
+                        WriteLine("Item removido com sucesso.");
+                    else
+                        WriteLine("Nenhum item com este ID foi encontrado.");
+                    aux=false;
+                }catch{
+
+                }
+            }while(aux==true);
+        }     
+        
+        private void ListarPorId(){
+            bool aux = true;
+            do{
+                WriteLine("Informe o ID do item a ser pesquisado.");
+                try{
+                    int id = Convert.ToInt32(ReadLine());
+                    Item item = itemController.Retrieve(id);
+                    if(item!=null){
+                        EscreverDados(item);
+                    }
+                    else
+                        WriteLine("Não há nenhum item com este ID.");
+                }catch{
+                    WriteLine("Erro. Tente novamente.");
+                }
+                aux = false;
+            }while(aux == true);
+            ReadLine();
+        }
+        private void ListarPorTitulo(){
+            WriteLine("Informe o termo de busca a ser utilizado.");
+            string? termoBusca = ReadLine();
+            List<Item> itens = itemController.Retrieve(termoBusca);
+            if(itens.Count==0 || itens == null){
+                WriteLine("Nenhum item encontrado.");
+            }else{
+                foreach(Item item in itens){
+                    EscreverDados(item);
+                }
+            }
+            ReadLine();
+        }
+        private void ListarTodos(){
+            List<Item> list = itemController.RetrieveAll();
+            if(list.Count!=0){
+                foreach (var i in list){
+                    EscreverDados(i);
+                }
+            }else
+                WriteLine("Não há nenhum item para ser exibido.");
+            WriteLine("Pressione enter para continuar...");
+            ReadLine();
+        }
+        private void MenuPesquisa(){
+            bool aux = true;
+            string[] menuListagem = {"1 - Mostrar todos",
+                "2 - Pesquisar por ID",
+                "3 - Pesquisar por título",
+                "0 - Voltar"};
+
+            do{
+                Clear();
+                txt.WriteMenu(tituloMenu, menuListagem);
+                try{
+                    int opcao = Convert.ToInt32(ReadLine());
+                    switch(opcao){
+                        case 1:
+                            ListarTodos();
+                            break;
+                        case 2:
+                            ListarPorId();
+                            break;
+                        case 3:
+                            ListarPorTitulo();
+                            break;
+                        case 0:
+                            aux = false;
+                            break;
+                        default:
+                            WriteLine("Opção inválida. Tente novamente.");
+                            aux = true;
+                            break;
+                    }
+                }catch{
+                    WriteLine("Erro. Tente novamente.");
+                }
+            }while(aux);
         }
     
-        void MostrarTodos(){
-            List<Item> list = itemController.RetrieveAll();
-            foreach (var i in list)
-            {
-                Console.WriteLine(i.ToString());
-            }
+        private void EscreverDados(Item item){
+            WriteLine(item.ToString());
         }
     }
 }

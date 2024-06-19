@@ -21,11 +21,14 @@ namespace ProjetoLocadora.Controllers
         public Item Retrieve(int id){
             return ir.Read(id);
         }
+        public List<Item> Retrieve (string termoBusca){
+            return ir.Read(termoBusca);
+        }
         public List<Item> RetrieveAll(){
             return ir.Read();
         }
-        public void Remove(int id){
-            ir.Delete(id);
+        public bool Remove(int id){
+            return ir.Delete(id);
         }
         public void Update(Item item){
             ir.Update(item);
