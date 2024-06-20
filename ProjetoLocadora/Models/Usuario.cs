@@ -22,7 +22,9 @@ namespace ProjetoLocadora.Models
             Nome = nome;
             LocadoraId = locadoraId;
         }
-
+        public string EscreverDadosDelimitados(){
+            return $"{UsuarioId};{Nome};{LocadoraId}";
+        }
         public override string ToString()
         {
             return $"{UsuarioId};{Nome};{LocadoraId}";

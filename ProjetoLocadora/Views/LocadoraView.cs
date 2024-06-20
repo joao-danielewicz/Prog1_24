@@ -45,6 +45,9 @@ namespace ProjetoLocadora.Views
                         case 4:
                             MenuPesquisa();
                             break;
+                        case 5:
+                            MenuDados();
+                            break;
                         case 0:
                             aux = false;
                             break;
@@ -193,6 +196,51 @@ namespace ProjetoLocadora.Views
                     WriteLine("Erro. Tente novamente.");
                 }
             }while(aux);
+        }
+
+        private void MenuDados(){
+            bool aux = true;
+            string[] menuListagem = {"1 - Exportar para .txt",
+                "2 - Importar .txt",
+                "0 - Voltar"};
+
+            do{
+                Clear();
+                txt.WriteMenu(tituloMenu, menuListagem);
+                try{
+                    int opcao = Convert.ToInt32(ReadLine());
+                    switch(opcao){
+                        case 1:
+                            ExportarDadosParaArquivo();
+                            break;
+                        case 2:
+                            ImportarDadosDoArquivo();
+                            break;
+                        case 0:
+                            aux = false;
+                            break;
+                        default:
+                            WriteLine("Opção inválida. Tente novamente.");
+                            aux = true;
+                            break;
+                    }
+                }catch{
+                    WriteLine("Erro. Tente novamente.");
+                }
+            }while(aux);
+        }
+
+        public void ExportarDadosParaArquivo(){
+            locadoraController.ExportToDelimited();
+        }
+        private void ImportarDadosDoArquivo(){
+            WriteLine("Informe o caminho do arquivo.");
+            string caminho = ReadLine();
+            WriteLine("Informe o delimitador dos dados.");
+            string delimitador = ReadLine();
+            WriteLine(locadoraController.ImportFromDelimited(caminho, delimitador));
+            WriteLine("Pressione Enter para continuar...");
+            ReadLine();
         }
     
         private void EscreverDados(Locadora loc){

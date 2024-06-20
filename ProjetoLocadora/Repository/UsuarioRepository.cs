@@ -63,5 +63,25 @@ namespace ProjetoLocadora.Repository
             }
             return ++id;
         }
+
+        public bool ImportFromTxt(string line, string delimiter){
+            if(string.IsNullOrWhiteSpace(line))
+                return false;
+
+            string[] data = line.Split(delimiter);
+
+            if(data.Count()<1)
+                return false;
+            
+            Usuario usr = new Usuario{
+                UsuarioId = Convert.ToInt32(data[0] == null ? 0 : data[0]),
+                Nome = data[1] ?? string.Empty,
+                LocadoraId = Convert.ToInt32(data[2] == null ? 0 : data[2]),
+            };
+
+            Create(usr, false);
+
+            return true; 
+        }
     }
 }

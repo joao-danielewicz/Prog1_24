@@ -24,7 +24,9 @@ namespace ProjetoLocadora.Models
             Nome = nome;
             Localizacao = localizacao;
         }
-
+        public string EscreverDadosDelimitados(){
+            return $"{LocadoraId};{Nome};{Localizacao}";
+        }
         public override string ToString(){
             return $"{LocadoraId};{Nome};{Localizacao}";
         }

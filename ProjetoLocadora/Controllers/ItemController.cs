@@ -11,7 +11,6 @@ namespace ProjetoLocadora.Controllers
     public class ItemController
     {
         private ItemRepository ir;
-        private LocadoraRepository lr;
 
         public ItemController(){
             ir = new ItemRepository();

@@ -86,7 +86,7 @@ namespace ProjetoLocadora.Repository
                 DataCadastro = Convert.ToDateTime(data[7] == null ? DateTime.Now : data[7]),
                 QtdTotal = Convert.ToInt32(data[8]== null ? 0 : data[8]),
                 QtdDisponivel = Convert.ToInt32(data[9]== null ? 0 : data[9]),
-                LocadoraId = Convert.ToInt32(data[10] == null ? 0 : data[9]),
+                LocadoraId = Convert.ToInt32(data[10] == null ? 0 : data[10]),
             };
 
             Create(item, false);

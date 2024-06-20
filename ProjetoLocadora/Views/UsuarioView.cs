@@ -26,6 +26,7 @@ namespace ProjetoLocadora.Views
                 "2 - Alterar",
                 "3 - Remover",
                 "4 - Pesquisar...",
+                "5 - Dados...",
                 "0 - Sair"};
 
             do{
@@ -46,6 +47,9 @@ namespace ProjetoLocadora.Views
                             break;
                         case 4:
                             MenuPesquisa();
+                            break;
+                        case 5:
+                            MenuDados();
                             break;
                         case 0:
                             aux = false;
@@ -195,7 +199,51 @@ namespace ProjetoLocadora.Views
                 }
             }while(aux);
         }
-    
+        private void MenuDados(){
+            bool aux = true;
+            string[] menuListagem = {"1 - Exportar para .txt",
+                "2 - Importar .txt",
+                "0 - Voltar"};
+
+            do{
+                Clear();
+                txt.WriteMenu(tituloMenu, menuListagem);
+                try{
+                    int opcao = Convert.ToInt32(ReadLine());
+                    switch(opcao){
+                        case 1:
+                            ExportarDadosParaArquivo();
+                            break;
+                        case 2:
+                            ImportarDadosDoArquivo();
+                            break;
+                        case 0:
+                            aux = false;
+                            break;
+                        default:
+                            WriteLine("Opção inválida. Tente novamente.");
+                            aux = true;
+                            break;
+                    }
+                }catch{
+                    WriteLine("Erro. Tente novamente.");
+                }
+            }while(aux);
+        }
+
+
+        public void ExportarDadosParaArquivo(){
+            usuarioController.ExportToDelimited(LocadoraId);
+        }
+        private void ImportarDadosDoArquivo(){
+            WriteLine("Informe o caminho do arquivo.");
+            string caminho = ReadLine();
+            WriteLine("Informe o delimitador dos dados.");
+            string delimitador = ReadLine();
+            WriteLine(usuarioController.ImportFromDelimited(caminho, delimitador));
+            WriteLine("Pressione Enter para continuar...");
+            ReadLine();
+        }
         private void EscreverDados(Usuario usuario){
             WriteLine(usuario.ToString());
         }
