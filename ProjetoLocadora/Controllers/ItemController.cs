@@ -11,9 +11,11 @@ namespace ProjetoLocadora.Controllers
     public class ItemController
     {
         private ItemRepository ir;
+        private LocadoraController lc;
 
         public ItemController(){
             ir = new ItemRepository();
+            lc = new LocadoraController();
         }
 
         public void Insert(Item item){
@@ -35,18 +37,31 @@ namespace ProjetoLocadora.Controllers
             ir.Update(item);
         }
 
-        public bool ExportToDelimited(int locadoraId){
-            List<Item> list = RetrieveAll(locadoraId);
+        public string Emprestar(Item item, int usuarioId){
+            if(ir.Emprestar(item, usuarioId))
+                return "Item emprestado com sucesso.";
+            else
+                return "Este item já está emprestado.";
+        }
+        public string Devolver(Item item){
+            ir.Devolver(item);
+            return "Item devolvido com sucesso.";
+        }
 
+
+        public string ExportToDelimited(int locadoraId){
+            List<Item> list = RetrieveAll(locadoraId);
             string fileContent = string.Empty;
             foreach(var item in list){
                 fileContent += $"{item.EscreverDadosDelimitados()}\n";
             }
 
             string fileName = $"DUMP_Itens_{DateTimeOffset.Now.ToFileTime()}.txt";
-            return ExportarDados.SalvarParaTexto(fileName, fileContent);
+            if(ExportarDados.SalvarParaTexto(fileName, fileContent, lc.Retrieve(locadoraId).Nome))
+                return "Exportação concluída com sucesso.";
+            else
+                return "Erro na exportação dos dados.";
         }
-
         public string ImportFromDelimited(string filePath, string delimiter){
             bool result = true;
             string msgReturn = string.Empty;

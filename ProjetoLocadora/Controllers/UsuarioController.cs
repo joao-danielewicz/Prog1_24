@@ -11,7 +11,7 @@ namespace ProjetoLocadora.Controllers
     public class UsuarioController
     {
         private UsuarioRepository ur;
-
+        private LocadoraController lc;
         public UsuarioController(){
             ur = new UsuarioRepository();
         }
@@ -35,7 +35,7 @@ namespace ProjetoLocadora.Controllers
             ur.Update(usuario);
         }
 
-        public bool ExportToDelimited(int locadoraId){
+        public string ExportToDelimited(int locadoraId){
             List<Usuario> list = RetrieveAll(locadoraId);
 
             string fileContent = string.Empty;
@@ -44,7 +44,10 @@ namespace ProjetoLocadora.Controllers
             }
 
             string fileName = $"DUMP_Usuarios_{DateTimeOffset.Now.ToFileTime()}.txt";
-            return ExportarDados.SalvarParaTexto(fileName, fileContent);
+            if(ExportarDados.SalvarParaTexto(fileName, fileContent, lc.Retrieve(locadoraId).Nome))
+                return "Exportação concluída com sucesso.";
+            else
+                return "Erro na exportação dos dados.";
         }
 
         public string ImportFromDelimited(string filePath, string delimiter){

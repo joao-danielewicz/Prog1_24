@@ -10,14 +10,55 @@ namespace ProjetoLocadora.Views
 {
     public class LocadoraView{
         private LocadoraController locadoraController;
+        private int LocadoraId;
+        private UsuarioView uv;
+        private ItemView iv;
         private Texto txt;
-        private string tituloMenu = "****** Menu das Locadoras ******";
-        public LocadoraView(){
+        private string tituloMenu = "****** Menu da Locadora ******";
+        public LocadoraView(int locadoraId){
+            LocadoraId = locadoraId;
             locadoraController = new();
             txt = new();
-            Init();
+            Init(LocadoraId);
         }
-        public void Init(){
+        public void Init(int locadoraId){
+            bool aux = true;
+            string[] menu = {
+                "1 - Itens...",
+                "2 - Usuários...",
+                "3 - Dados...",
+                "0 - Voltar"};
+
+            do{
+                try{
+                    Clear();
+                    txt.WriteMenu(tituloMenu, menu);
+                    int opcao = Convert.ToInt32(ReadLine());
+
+                    switch(opcao){
+                        case 1:
+                            iv = new(locadoraId);
+                            break;
+                        case 2:
+                            uv = new(locadoraId);
+                            break;
+                        case 3:
+                            MenuDados();
+                            break;
+                        case 0:
+                            aux = false;
+                            break;
+                        default:
+                            WriteLine("Opção inválida. Tente novamente.\n");
+                            aux = true;
+                            break;
+                    }
+                }catch{
+                    WriteLine("Erro. Tente novamente.\n");
+                }
+            }while(aux);
+        }
+        public void MenuCrud(){
             bool aux = true;
             string[] menu = {
                 "1 - Cadastrar",
@@ -45,9 +86,6 @@ namespace ProjetoLocadora.Views
                         case 4:
                             MenuPesquisa();
                             break;
-                        case 5:
-                            MenuDados();
-                            break;
                         case 0:
                             aux = false;
                             break;
@@ -59,7 +97,6 @@ namespace ProjetoLocadora.Views
                 }catch{
                     WriteLine("Erro. Tente novamente.\n");
                 }
-            Thread.Sleep(1000);
             }while(aux);
         }   
 

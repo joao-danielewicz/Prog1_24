@@ -54,7 +54,22 @@ namespace ProjetoLocadora.Repository
                 return false;
             }
         }
-        
+
+        public bool Emprestar(Item item, int usuarioId){
+            if(item.UsuarioId==0){
+                item.UsuarioId = usuarioId;
+                Update(item);
+                return true;
+            }else {
+                return false;
+            }
+        }
+        public void Devolver(Item item){
+            item.UsuarioId=0;
+            Update(item);
+        }
+
+
         private int GetNextId(){
             int id = 0;
             foreach(var item in DataSet.Itens){
@@ -84,9 +99,7 @@ namespace ProjetoLocadora.Repository
                 Estudio = data[5] ?? string.Empty,
                 Lancamento = Convert.ToDateTime(data[6] == null ? DateTime.Now : data[6]),
                 DataCadastro = Convert.ToDateTime(data[7] == null ? DateTime.Now : data[7]),
-                QtdTotal = Convert.ToInt32(data[8]== null ? 0 : data[8]),
-                QtdDisponivel = Convert.ToInt32(data[9]== null ? 0 : data[9]),
-                LocadoraId = Convert.ToInt32(data[10] == null ? 0 : data[10]),
+                LocadoraId = Convert.ToInt32(data[8] == null ? 0 : data[8]),
             };
 
             Create(item, false);

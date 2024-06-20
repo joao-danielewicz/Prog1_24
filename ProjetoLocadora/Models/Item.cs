@@ -13,10 +13,8 @@ namespace ProjetoLocadora.Models{
         public string Estudio {get; set; } = "Não Definido";
         public DateTime Lancamento {get; set; } = DateTime.Now;
         public DateTime DataCadastro {get; set; } = DateTime.Now;
-        public int QtdTotal {get; set; } = 1;
-        public int QtdDisponivel {get; set; } = 1;
         public int LocadoraId {get; set; }
-        public List<int> Emprestimos {get; set; } = new();
+        public int UsuarioId {get; set; } = 0;
 
         public Item(){}
 
@@ -24,7 +22,7 @@ namespace ProjetoLocadora.Models{
             ItemId = itemId;
         }
 
-        public Item(int itemId, string titulo, string diretor, string genero, TiposMidia tipoMidia, string estudio, DateTime lancamento, DateTime dataCadastro, int qtdTotal, int locadoraId){
+        public Item(int itemId, string titulo, string diretor, string genero, TiposMidia tipoMidia, string estudio, DateTime lancamento, DateTime dataCadastro, int locadoraId){
             ItemId = itemId;
             Titulo = titulo;
             Diretor = diretor;
@@ -33,18 +31,16 @@ namespace ProjetoLocadora.Models{
             Estudio = estudio;
             Lancamento = lancamento;
             DataCadastro = dataCadastro;
-            QtdTotal = qtdTotal;
-            QtdDisponivel = qtdTotal;
             LocadoraId = locadoraId;
         }
         public string EscreverDadosDelimitados(){
             int tipoMidia = (int)Tipo;
-            return $"{ItemId};{Titulo};{Diretor};{Genero};{tipoMidia};{Estudio};{Lancamento};{DataCadastro};{QtdTotal};{QtdDisponivel};{LocadoraId}";
+            return $"{ItemId};{Titulo};{Diretor};{Genero};{tipoMidia};{Estudio};{Lancamento};{DataCadastro};{LocadoraId}";
         }
         public override string ToString()
         {
             // return string.Format("{0, -30} {1, 3}", Name, CustomerId);
-            return $"{ItemId};{Titulo};{Diretor};{Genero};{Tipo};{Estudio};{Lancamento};{DataCadastro};{QtdTotal};{QtdDisponivel};{LocadoraId}";
+            return $"ID: {ItemId}\nTítulo: {Titulo}\nDiretor(a): {Diretor}\nGênero: {Genero}\nTipo da obra: {Tipo}\nEstúdio: {Estudio}\nData de lançamento: {Lancamento}\nAlteração em: {DataCadastro}";
         }
     }
 }

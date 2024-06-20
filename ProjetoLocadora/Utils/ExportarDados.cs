@@ -8,14 +8,22 @@ namespace ProjetoLocadora.Utils
 {
     public class ExportarDados
     {
-        private const string dir = @"Arquivos";
-        public static bool SalvarParaTexto(string fileName, string fileContent){
-            string filePath = @$"{dir}\{fileName}";
+        private const string baseDir = @"Arquivos";
+        public static bool SalvarParaTexto(string fileName, string fileContent, string nomeLocadora){            
+            string pasta = "";
+            if(nomeLocadora!=null)
+                pasta = @$"{baseDir}\Itens e Usuários\{nomeLocadora}";
+            else
+                pasta = @$"{baseDir}\Locadoras";
+
+            string filePath = @$"{pasta}\{fileName}";
+            WriteLine(filePath);
+            ReadLine();
 
             try{
 
-                if(!Directory.Exists(dir)){
-                    Directory.CreateDirectory(dir);
+                if(!Directory.Exists(pasta)){
+                    Directory.CreateDirectory(pasta);
                 }
                 
                 using(StreamWriter sw = File.CreateText(filePath)){

@@ -36,7 +36,7 @@ namespace ProjetoLocadora.Controllers
         }
 
 
-        public bool ExportToDelimited(){
+        public string ExportToDelimited(){
             List<Locadora> list = RetrieveAll();
 
             string fileContent = string.Empty;
@@ -45,7 +45,10 @@ namespace ProjetoLocadora.Controllers
             }
 
             string fileName = $"DUMP_Locadoras_{DateTimeOffset.Now.ToFileTime()}.txt";
-            return ExportarDados.SalvarParaTexto(fileName, fileContent);
+            if(ExportarDados.SalvarParaTexto(fileName, fileContent, null))
+                return "Exportação concluída com sucesso.";
+            else
+                return "Erro na exportação dos dados.";
         }
 
         public string ImportFromDelimited(string filePath, string delimiter){

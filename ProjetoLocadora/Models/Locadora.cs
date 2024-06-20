@@ -28,7 +28,7 @@ namespace ProjetoLocadora.Models
             return $"{LocadoraId};{Nome};{Localizacao}";
         }
         public override string ToString(){
-            return $"{LocadoraId};{Nome};{Localizacao}";
+            return $"ID: {LocadoraId}\nNome: {Nome}\nLocalização: {Localizacao}";
         }
     }
 }
