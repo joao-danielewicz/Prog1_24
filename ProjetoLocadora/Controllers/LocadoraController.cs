@@ -35,7 +35,17 @@ namespace ProjetoLocadora.Controllers
             lr.Update(locadora);
         }
 
+        public List<Item> VerificarEmprestimos(int LocadoraId){
+            return lr.ItensEmprestados(LocadoraId);
+        }
 
+        public bool VerificarLocadoras(){
+            if(lr.Read().Count()==0){
+                return true;
+            }else{
+                return false;
+            }
+        }
         public string ExportToDelimited(){
             List<Locadora> list = RetrieveAll();
 

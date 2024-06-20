@@ -221,7 +221,7 @@ namespace ProjetoLocadora.Views
             bool aux = true;
             do{
                 try{
-                    WriteLine("Informe o ID do item a ser emprestado.");
+                    WriteLine("Informe o ID do item a ser devolvido.");
                     int itemId = Convert.ToInt32(ReadLine());
                     if(itemId==0)
                         throw new Exception("");
@@ -264,6 +264,8 @@ namespace ProjetoLocadora.Views
             if(itens.Count==0 || itens == null){
                 WriteLine("Nenhum item encontrado.");
             }else{
+                WriteLine(string.Format(Item.Formato, "ID", "Título", "Diretor(a)", "Gênero", "Tipo da obra",
+                "Estúdio", "Data de lançamento", "Alteração em","Emprestado para"));
                 foreach(Item item in itens){
                     EscreverDados(item);
                 }
@@ -273,6 +275,8 @@ namespace ProjetoLocadora.Views
         private void ListarTodos(){
             List<Item> list = itemController.RetrieveAll(LocadoraId);
             if(list.Count!=0){
+                WriteLine(string.Format(Item.Formato, "ID", "Título", "Diretor(a)", "Gênero", "Tipo da obra",
+                "Estúdio", "Data de lançamento", "Alteração em","Emprestado para"));
                 foreach (var i in list){
                     EscreverDados(i);
                 }

@@ -22,7 +22,7 @@ namespace ProjetoLocadora.Views
         public void Init(){
             bool aux = true;
             string[] menu = {
-                "1 - Menu dos itens...",
+                "1 - Menu dos usuários...",
                 "2 - Menu dos dados...",
                 "0 - Voltar"};
 
@@ -184,6 +184,7 @@ namespace ProjetoLocadora.Views
         private void ListarTodos(){
             List<Usuario> list = usuarioController.RetrieveAll(LocadoraId);
             if(list.Count!=0){
+                WriteLine(string.Format(Usuario.Formato, "ID", "Nome", "ID da Locadora"));
                 foreach (var i in list){
                     EscreverDados(i);
                 }

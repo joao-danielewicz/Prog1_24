@@ -10,6 +10,7 @@ namespace ProjetoLocadora.Models
         public int UsuarioId { get; set; } = 0;
         public string Nome { get ; set; } = "Não definido";
         public int LocadoraId { get; set; }
+        public static readonly string Formato = "{0, -3} {1, -30} {2, -15}";
 
         public Usuario(){}
 
@@ -27,7 +28,7 @@ namespace ProjetoLocadora.Models
         }
         public override string ToString()
         {
-            return $"ID: {UsuarioId}\nNome:{Nome}";
+            return string.Format(Formato, UsuarioId, Nome, LocadoraId);
         }
     }
 }

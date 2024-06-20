@@ -15,6 +15,7 @@ namespace ProjetoLocadora.Models{
         public DateTime DataCadastro {get; set; } = DateTime.Now;
         public int LocadoraId {get; set; }
         public int UsuarioId {get; set; } = 0;
+        public static readonly string Formato = "{0, -3} {1, -45} {2,  -20} {3, -10} {4, -20} {5, -10} {6, -22} {7, -22} {8, -5}";
 
         public Item(){}
 
@@ -39,8 +40,13 @@ namespace ProjetoLocadora.Models{
         }
         public override string ToString()
         {
-            // return string.Format("{0, -30} {1, 3}", Name, CustomerId);
-            return $"ID: {ItemId}\nTítulo: {Titulo}\nDiretor(a): {Diretor}\nGênero: {Genero}\nTipo da obra: {Tipo}\nEstúdio: {Estudio}\nData de lançamento: {Lancamento}\nAlteração em: {DataCadastro}";
+            string statusUsuario = "";
+            if(UsuarioId!=0){
+                statusUsuario = UsuarioId.ToString();
+            }else{
+                statusUsuario = "Ninguém";
+            }
+            return string.Format(Formato, ItemId,Titulo,Diretor,Genero,Tipo,Estudio,Lancamento,DataCadastro,statusUsuario);
         }
     }
 }

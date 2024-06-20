@@ -13,8 +13,11 @@ namespace ProjetoLocadora.Views
         private int LocadoraId;
         private UsuarioView uv;
         private ItemView iv;
-        private Texto txt;
+        private Texto txt = new();
         private string tituloMenu = "****** Menu da Locadora ******";
+        public LocadoraView(){
+            InserirLocadora();
+        }
         public LocadoraView(int locadoraId){
             LocadoraId = locadoraId;
             locadoraController = new();
@@ -26,7 +29,9 @@ namespace ProjetoLocadora.Views
             string[] menu = {
                 "1 - Itens...",
                 "2 - Usuários...",
-                "3 - Dados...",
+                "3 - Menu das locadoras...",
+                "4 - Dados...",
+                "5 - Verificar empréstimos",
                 "0 - Voltar"};
 
             do{
@@ -43,7 +48,13 @@ namespace ProjetoLocadora.Views
                             uv = new(locadoraId);
                             break;
                         case 3:
+                            MenuCrud();
+                            break;
+                        case 4:
                             MenuDados();
+                            break;
+                        case 5:
+                            VerificarEmprestimos();
                             break;
                         case 0:
                             aux = false;
@@ -182,6 +193,7 @@ namespace ProjetoLocadora.Views
             if(locs.Count==0 || locs == null){
                 WriteLine("Nenhuma locadora encontrada.");
             }else{
+                WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização", "Acervo"));
                 foreach(Locadora loc in locs){
                     EscreverDados(loc);
                 }
@@ -191,6 +203,7 @@ namespace ProjetoLocadora.Views
         private void ListarTodos(){
             List<Locadora> list = locadoraController.RetrieveAll();
             if(list.Count!=0){
+                WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização", "Acervo"));
                 foreach (var i in list){
                     EscreverDados(i);
                 }
@@ -199,6 +212,7 @@ namespace ProjetoLocadora.Views
             WriteLine("Pressione enter para continuar...");
             ReadLine();
         }
+        
         private void MenuPesquisa(){
             bool aux = true;
             string[] menuListagem = {"1 - Mostrar todas",
@@ -234,7 +248,6 @@ namespace ProjetoLocadora.Views
                 }
             }while(aux);
         }
-
         private void MenuDados(){
             bool aux = true;
             string[] menuListagem = {"1 - Exportar para .txt",
@@ -267,6 +280,20 @@ namespace ProjetoLocadora.Views
             }while(aux);
         }
 
+        public void VerificarEmprestimos(){
+            List<Item> emprestados = locadoraController.VerificarEmprestimos(LocadoraId);
+            if(emprestados.Count==0){
+                WriteLine("Não há nenhum empréstimo pendente.");
+            }else{
+                WriteLine(string.Format("{0, -30} {1}", "Título", "ID do Usuário", "banana"));
+                foreach(Item item in emprestados){
+                    WriteLine(string.Format("{0, -30} {1}", item.Titulo, item.UsuarioId));
+                }
+            }
+            WriteLine("Pressione Enter para continuar...");
+            ReadLine();
+        }
+        
         public void ExportarDadosParaArquivo(){
             locadoraController.ExportToDelimited();
         }

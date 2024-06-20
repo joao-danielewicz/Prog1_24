@@ -10,8 +10,8 @@ namespace ProjetoLocadora.Models
         public int LocadoraId { get; set; } = 0;
         public string Nome { get; set; } = "Não definido";
         public string Localizacao { get; set; }  = "Não definido";
-        public int Capacidade { get; set; } = 1000;
         public int Acervo { get; set; } = 0;
+        public static readonly string Formato = "{0, -3} {1, -30} {2, -30} {4, -5}";
 
         public Locadora(){}
 
@@ -28,7 +28,7 @@ namespace ProjetoLocadora.Models
             return $"{LocadoraId};{Nome};{Localizacao}";
         }
         public override string ToString(){
-            return $"ID: {LocadoraId}\nNome: {Nome}\nLocalização: {Localizacao}";
+            return string.Format(Formato, LocadoraId, Nome, Localizacao, Acervo);
         }
     }
 }
