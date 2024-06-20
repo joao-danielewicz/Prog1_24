@@ -3,8 +3,8 @@ using ProjetoLocadora.Models;
 using ProjetoLocadora.Controllers;
 using ProjetoLocadora.Utils;
 
-// Init();
-LocadoraView lv = new(1);
+Init();
+
 static void Init(){
     bool aux = true;
     Texto txt = new();
@@ -16,7 +16,7 @@ static void Init(){
         "0 - Sair"};
 
     do{
-        try{
+        // try{
             Clear();
             txt.WriteMenu(tituloMenu, menu);
             int opcao = Convert.ToInt32(ReadLine());
@@ -36,18 +36,13 @@ static void Init(){
                     aux = true;
                     break;
             }
-        }catch{
-            WriteLine("Erro. Tente novamente.\n");
-        }
+        // }catch{
+        //     WriteLine("Erro. Tente novamente.\n");
+        // }
     }while(aux);
 
     void AcessoLocadora(){
-        if(lc.VerificarLocadoras()){
-            WriteLine("Nenhuma locadora encontrada. Por favor, cadastre uma para começar.");
-            LocadoraView lv = new();
-        }else{
-            WriteLine("banana");
-            ReadLine();
+        if(lc.VerificarLocadoras()!=0){
             bool aux = true;
             do{
                 WriteLine("Escolha uma das locadoras a seguir para realizar seu acesso.");
@@ -57,11 +52,13 @@ static void Init(){
                 try{
                     int locadoraId = Convert.ToInt32(ReadLine());
                     LocadoraView lv = new(locadoraId);
-                }
-                catch{
+                }catch{
                     WriteLine("Houve um erro. Tente novamente.");
                 }
             }while(aux);
+        }else{
+            WriteLine("Nenhuma locadora encontrada. Por favor, cadastre uma para começar.");
+            LocadoraView lv = new();
         }
     }
 

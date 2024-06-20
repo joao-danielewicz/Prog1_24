@@ -11,7 +11,7 @@ namespace ProjetoLocadora.Models
         public string Nome { get; set; } = "Não definido";
         public string Localizacao { get; set; }  = "Não definido";
         public int Acervo { get; set; } = 0;
-        public static readonly string Formato = "{0, -3} {1, -30} {2, -30} {4, -5}";
+        public static readonly string Formato = "{0, -3} {1, -30} {2, -30} {3, -5}";
 
         public Locadora(){}
 

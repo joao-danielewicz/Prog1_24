@@ -16,6 +16,7 @@ namespace ProjetoLocadora.Views
         private Texto txt = new();
         private string tituloMenu = "****** Menu da Locadora ******";
         public LocadoraView(){
+            locadoraController = new();
             InserirLocadora();
         }
         public LocadoraView(int locadoraId){
