@@ -90,7 +90,7 @@ namespace ProjetoLocadora.Views
             Usuario usuario = new();
             do{
                 try{
-                    WriteLine("Informe o ID do item a ser alterado.");
+                    WriteLine("Informe o ID do usuário a ser alterado.");
                     id = Convert.ToInt32(ReadLine());
                     usuario = FormularioUsuario(false, id);
                     break;
@@ -102,14 +102,14 @@ namespace ProjetoLocadora.Views
         }
         private void RemoverUsuario(){
             bool aux = true;
-            WriteLine("Insira o ID do item a ser removido.\n Esta ação não pode ser desfeita.");
+            WriteLine("Insira o ID do usuário a ser removido.\n Esta ação não pode ser desfeita.");
             do{
                 try{
                     int id = Convert.ToInt32(ReadLine());
                     if(usuarioController.Remove(id))
-                        WriteLine("Item removido com sucesso.");
+                        WriteLine("usuário removido com sucesso.");
                     else
-                        WriteLine("Nenhum item com este ID foi encontrado.");
+                        WriteLine("Nenhum usuário com este ID foi encontrado.");
                     aux=false;
                 }catch{
 
@@ -120,15 +120,15 @@ namespace ProjetoLocadora.Views
         private void ListarPorId(){
             bool aux = true;
             do{
-                WriteLine("Informe o ID do item a ser pesquisado.");
+                WriteLine("Informe o ID do usuário a ser pesquisado.");
                 try{
                     int id = Convert.ToInt32(ReadLine());
-                    Usuario usuario = usuarioController.Retrieve(id);
+                    Usuario usuario = usuarioController.Retrieve(id, LocadoraId);
                     if(usuario!=null){
                         EscreverDados(usuario);
                     }
                     else
-                        WriteLine("Não há nenhum item com este ID.");
+                        WriteLine("Não há nenhum usuário com este ID.");
                 }catch{
                     WriteLine("Erro. Tente novamente.");
                 }
@@ -139,9 +139,9 @@ namespace ProjetoLocadora.Views
         private void ListarPorTitulo(){
             WriteLine("Informe o termo de busca a ser utilizado.");
             string? termoBusca = ReadLine();
-            List<Usuario> usuarios = usuarioController.Retrieve(termoBusca);
+            List<Usuario> usuarios = usuarioController.Retrieve(termoBusca, LocadoraId);
             if(usuarios.Count==0 || usuarios == null){
-                WriteLine("Nenhum item encontrado.");
+                WriteLine("Nenhum usuário encontrado.");
             }else{
                 foreach(Usuario usuario in usuarios){
                     EscreverDados(usuario);
@@ -150,13 +150,13 @@ namespace ProjetoLocadora.Views
             ReadLine();
         }
         private void ListarTodos(){
-            List<Usuario> list = usuarioController.RetrieveAll();
+            List<Usuario> list = usuarioController.RetrieveAll(LocadoraId);
             if(list.Count!=0){
                 foreach (var i in list){
                     EscreverDados(i);
                 }
             }else
-                WriteLine("Não há nenhum item para ser exibido.");
+                WriteLine("Não há nenhum usuário para ser exibido.");
             WriteLine("Pressione enter para continuar...");
             ReadLine();
         }
@@ -164,7 +164,7 @@ namespace ProjetoLocadora.Views
             bool aux = true;
             string[] menuListagem = {"1 - Mostrar todos",
                 "2 - Pesquisar por ID",
-                "3 - Pesquisar por título",
+                "3 - Pesquisar por nome",
                 "0 - Voltar"};
 
             do{

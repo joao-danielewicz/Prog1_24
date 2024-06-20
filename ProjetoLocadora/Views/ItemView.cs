@@ -26,6 +26,7 @@ namespace ProjetoLocadora.Views
                 "2 - Alterar",
                 "3 - Remover",
                 "4 - Pesquisar...",
+                "5 - Dados...",
                 "0 - Sair"};
 
             do{
@@ -46,6 +47,9 @@ namespace ProjetoLocadora.Views
                             break;
                         case 4:
                             MenuPesquisa();
+                            break;
+                        case 5:
+                            MenuDados();
                             break;
                         case 0:
                             aux = false;
@@ -160,7 +164,7 @@ namespace ProjetoLocadora.Views
                 WriteLine("Informe o ID do item a ser pesquisado.");
                 try{
                     int id = Convert.ToInt32(ReadLine());
-                    Item item = itemController.Retrieve(id);
+                    Item item = itemController.Retrieve(id, LocadoraId);
                     if(item!=null){
                         EscreverDados(item);
                     }
@@ -176,7 +180,7 @@ namespace ProjetoLocadora.Views
         private void ListarPorTitulo(){
             WriteLine("Informe o termo de busca a ser utilizado.");
             string? termoBusca = ReadLine();
-            List<Item> itens = itemController.Retrieve(termoBusca);
+            List<Item> itens = itemController.Retrieve(termoBusca, LocadoraId);
             if(itens.Count==0 || itens == null){
                 WriteLine("Nenhum item encontrado.");
             }else{
@@ -187,7 +191,7 @@ namespace ProjetoLocadora.Views
             ReadLine();
         }
         private void ListarTodos(){
-            List<Item> list = itemController.RetrieveAll();
+            List<Item> list = itemController.RetrieveAll(LocadoraId);
             if(list.Count!=0){
                 foreach (var i in list){
                     EscreverDados(i);
@@ -233,6 +237,50 @@ namespace ProjetoLocadora.Views
             }while(aux);
         }
     
+        private void MenuDados(){
+            bool aux = true;
+            string[] menuListagem = {"1 - Exportar para .txt",
+                "2 - Importar .txt",
+                "0 - Voltar"};
+
+            do{
+                Clear();
+                txt.WriteMenu(tituloMenu, menuListagem);
+                try{
+                    int opcao = Convert.ToInt32(ReadLine());
+                    switch(opcao){
+                        case 1:
+                            ExportarDadosParaArquivo();
+                            break;
+                        case 2:
+                            ImportarDadosDoArquivo();
+                            break;
+                        case 0:
+                            aux = false;
+                            break;
+                        default:
+                            WriteLine("Opção inválida. Tente novamente.");
+                            aux = true;
+                            break;
+                    }
+                }catch{
+                    WriteLine("Erro. Tente novamente.");
+                }
+            }while(aux);
+        }
+
+        public void ExportarDadosParaArquivo(){
+            itemController.ExportToDelimited(LocadoraId);
+        }
+        private void ImportarDadosDoArquivo(){
+            WriteLine("Informe o caminho do arquivo.");
+            string caminho = ReadLine();
+            WriteLine("Informe o delimitador dos dados.");
+            string delimitador = ReadLine();
+            WriteLine(itemController.ImportFromDelimited(caminho, delimitador));
+            WriteLine("Pressione Enter para continuar...");
+            ReadLine();
+        }
         private void EscreverDados(Item item){
             WriteLine(item.ToString());
         }

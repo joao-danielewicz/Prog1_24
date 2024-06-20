@@ -37,10 +37,14 @@ namespace ProjetoLocadora.Models{
             QtdDisponivel = qtdTotal;
             LocadoraId = locadoraId;
         }
-
+        public string EscreverDadosDelimitados(){
+            int tipoMidia = (int)Tipo;
+            return $"{ItemId};{Titulo};{Diretor};{Genero};{tipoMidia};{Estudio};{Lancamento};{DataCadastro};{QtdTotal};{QtdDisponivel};{LocadoraId}";
+        }
         public override string ToString()
         {
-            return $"{ItemId};{Titulo};{Diretor};{Genero};{Tipo};{Estudio};{Lancamento};{DataCadastro};{QtdTotal};{QtdDisponivel};{LocadoraId};";
+            // return string.Format("{0, -30} {1, 3}", Name, CustomerId);
+            return $"{ItemId};{Titulo};{Diretor};{Genero};{Tipo};{Estudio};{Lancamento};{DataCadastro};{QtdTotal};{QtdDisponivel};{LocadoraId}";
         }
     }
 }

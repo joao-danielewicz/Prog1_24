@@ -14,25 +14,31 @@ namespace ProjetoLocadora.Repository
 
             DataSet.Usuarios.Add(usuario);
         }
-        public Usuario? Read(int id){
+        public Usuario? Read(int id, int locadoraId){
             foreach(var usr in DataSet.Usuarios){
-                if(usr.UsuarioId == id){
+                if(usr.UsuarioId == id && usr.LocadoraId == locadoraId){
                     return usr;
                 }
             }
             return null;
         }
-        public List<Usuario> Read(string termoBusca){
+        public List<Usuario> Read(string termoBusca, int locadoraId){
             List<Usuario> usuarios = new();
-            foreach(Usuario usr in Read()){
+            foreach(Usuario usr in Read(locadoraId)){
                 if(usr.Nome.ToLower().Contains(termoBusca.ToLower())){
                     usuarios.Add(usr);
                 }
             }
             return usuarios;
         }
-        public List<Usuario> Read(){
-            return DataSet.Usuarios;
+        public List<Usuario> Read(int locadoraId){
+            List<Usuario> result = new();
+            foreach(var usr in DataSet.Usuarios){
+                if(usr.LocadoraId == locadoraId){
+                    result.Add(usr);
+                }
+            }
+            return result;
         }
         public void Update(Usuario usuario){
             Delete(usuario.UsuarioId);

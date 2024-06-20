@@ -18,14 +18,14 @@ namespace ProjetoLocadora.Controllers
         public void Insert(Usuario usuario){
             ur.Create(usuario);
         }
-        public Usuario? Retrieve(int id){
-            return ur.Read(id);
+        public Usuario? Retrieve(int id, int locadoraId){
+            return ur.Read(id, locadoraId);
         }
-        public List<Usuario> Retrieve(string termoBusca){
-            return ur.Read(termoBusca);
+        public List<Usuario> Retrieve(string termoBusca, int locadoraId){
+            return ur.Read(termoBusca, locadoraId);
         }
-        public List<Usuario> RetrieveAll(){
-            return ur.Read();
+        public List<Usuario> RetrieveAll(int locadoraId){
+            return ur.Read(locadoraId);
         }
         public bool Remove(int id){
             return ur.Delete(id);
