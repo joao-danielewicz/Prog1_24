@@ -9,12 +9,18 @@ using ProjetoLocadora.Utils;
 namespace ProjetoLocadora.Views
 {
     public class LocadoraView{
+
+        // --------------------------------- ATRIBUTOS -------------------------------
+
         private LocadoraController locadoraController;
         private int LocadoraId;
         private UsuarioView uv;
         private ItemView iv;
         private Texto txt = new();
         private string tituloMenu = "****** Menu da Locadora ******";
+
+        // ------------------------- CONSTRUTORES E INICIALIZADOR ---------------------
+
         public LocadoraView(){
             locadoraController = new();
             InserirLocadora();
@@ -70,48 +76,9 @@ namespace ProjetoLocadora.Views
                 }
             }while(aux);
         }
-        public void MenuCrud(){
-            bool aux = true;
-            string[] menu = {
-                "1 - Cadastrar",
-                "2 - Alterar",
-                "3 - Remover",
-                "4 - Pesquisar...",
-                "0 - Sair"};
-
-            do{
-                try{
-                    Clear();
-                    txt.WriteMenu(tituloMenu, menu);
-                    int opcao = Convert.ToInt32(ReadLine());
-
-                    switch(opcao){
-                        case 1:
-                            InserirLocadora();
-                            break;
-                        case 2:
-                            AlterarLocadora();
-                            break;
-                        case 3:
-                            RemoverLocadora();
-                            break;
-                        case 4:
-                            MenuPesquisa();
-                            break;
-                        case 0:
-                            aux = false;
-                            break;
-                        default:
-                            WriteLine("Opção inválida. Tente novamente.\n");
-                            aux = true;
-                            break;
-                    }
-                }catch{
-                    WriteLine("Erro. Tente novamente.\n");
-                }
-            }while(aux);
-        }   
-
+        
+        // --------------------------------- CRUD -------------------------------------
+          
         private Locadora FormularioLocadora(bool generateId = true, int id=0){
             bool aux = true;
             Locadora loc = new Locadora();
@@ -168,6 +135,8 @@ namespace ProjetoLocadora.Views
             }while(aux==true);
         }     
         
+        // --------------------------------- LISTAGENS --------------------------------
+
         private void ListarPorId(){
             bool aux = true;
             do{
@@ -176,6 +145,7 @@ namespace ProjetoLocadora.Views
                     int id = Convert.ToInt32(ReadLine());
                     Locadora loc = locadoraController.Retrieve(id);
                     if(loc!=null){
+                        WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização", "Acervo"));
                         EscreverDados(loc);
                     }
                     else
@@ -213,6 +183,8 @@ namespace ProjetoLocadora.Views
             WriteLine("Pressione enter para continuar...");
             ReadLine();
         }
+        
+        // --------------------------------- MENUS ------------------------------------
         
         private void MenuPesquisa(){
             bool aux = true;
@@ -280,21 +252,50 @@ namespace ProjetoLocadora.Views
                 }
             }while(aux);
         }
+        public void MenuCrud(){
+            bool aux = true;
+            string[] menu = {
+                "1 - Cadastrar",
+                "2 - Alterar",
+                "3 - Remover",
+                "4 - Pesquisar...",
+                "0 - Voltar"};
 
-        public void VerificarEmprestimos(){
-            List<Item> emprestados = locadoraController.VerificarEmprestimos(LocadoraId);
-            if(emprestados.Count==0){
-                WriteLine("Não há nenhum empréstimo pendente.");
-            }else{
-                WriteLine(string.Format("{0, -30} {1}", "Título", "ID do Usuário", "banana"));
-                foreach(Item item in emprestados){
-                    WriteLine(string.Format("{0, -30} {1}", item.Titulo, item.UsuarioId));
+            do{
+                try{
+                    Clear();
+                    txt.WriteMenu(tituloMenu, menu);
+                    int opcao = Convert.ToInt32(ReadLine());
+
+                    switch(opcao){
+                        case 1:
+                            InserirLocadora();
+                            break;
+                        case 2:
+                            AlterarLocadora();
+                            break;
+                        case 3:
+                            RemoverLocadora();
+                            break;
+                        case 4:
+                            MenuPesquisa();
+                            break;
+                        case 0:
+                            aux = false;
+                            break;
+                        default:
+                            WriteLine("Opção inválida. Tente novamente.\n");
+                            aux = true;
+                            break;
+                    }
+                }catch{
+                    WriteLine("Erro. Tente novamente.\n");
                 }
-            }
-            WriteLine("Pressione Enter para continuar...");
-            ReadLine();
-        }
+            }while(aux);
+        } 
         
+        // --------------------------------- ARQUIVOS ----------------------------------
+
         public void ExportarDadosParaArquivo(){
             locadoraController.ExportToDelimited();
         }
@@ -308,8 +309,23 @@ namespace ProjetoLocadora.Views
             ReadLine();
         }
     
+        // ------------------------- OUTRAS FUNÇÕES -------------------------------------
+        
         private void EscreverDados(Locadora loc){
             WriteLine(loc.ToString());
+        }
+        public void VerificarEmprestimos(){
+            List<Item> emprestados = locadoraController.VerificarEmprestimos(LocadoraId);
+            if(emprestados.Count==0){
+                WriteLine("Não há nenhum empréstimo pendente.");
+            }else{
+                WriteLine(string.Format("{0, -30} {1}", "Título", "ID do Usuário", "banana"));
+                foreach(Item item in emprestados){
+                    WriteLine(string.Format("{0, -30} {1}", item.Titulo, item.UsuarioId));
+                }
+            }
+            WriteLine("Pressione Enter para continuar...");
+            ReadLine();
         }
     }
 }

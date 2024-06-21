@@ -14,6 +14,7 @@ namespace ProjetoLocadora.Controllers
         private LocadoraController lc;
         public UsuarioController(){
             ur = new UsuarioRepository();
+            lc = new LocadoraController();
         }
 
         public void Insert(Usuario usuario){
@@ -37,7 +38,6 @@ namespace ProjetoLocadora.Controllers
 
         public string ExportToDelimited(int locadoraId){
             List<Usuario> list = RetrieveAll(locadoraId);
-
             string fileContent = string.Empty;
             foreach(var usr in list){
                 fileContent += $"{usr.EscreverDadosDelimitados()}\n";

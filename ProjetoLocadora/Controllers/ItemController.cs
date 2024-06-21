@@ -55,12 +55,14 @@ namespace ProjetoLocadora.Controllers
             foreach(var item in list){
                 fileContent += $"{item.EscreverDadosDelimitados()}\n";
             }
-
+                WriteLine("banana");
+                ReadLine();
             string fileName = $"DUMP_Itens_{DateTimeOffset.Now.ToFileTime()}.txt";
             if(ExportarDados.SalvarParaTexto(fileName, fileContent, lc.Retrieve(locadoraId).Nome))
                 return "Exportação concluída com sucesso.";
-            else
+            else{
                 return "Erro na exportação dos dados.";
+            }
         }
         public string ImportFromDelimited(string filePath, string delimiter){
             bool result = true;

@@ -9,10 +9,16 @@ using ProjetoLocadora.Utils;
 namespace ProjetoLocadora.Views
 {
     public class ItemView{
+
+        // --------------------------------- ATRIBUTOS -------------------------------
+
         private ItemController itemController;
         private int LocadoraId;
         private Texto txt;
         private string tituloMenu = "****** Menu dos Itens da Locadora ******";
+
+        // ------------------------- CONSTRUTORES E INICIALIZADOR ---------------------
+
         public ItemView(int locadoraId){
             itemController = new();
             txt = new();
@@ -61,48 +67,8 @@ namespace ProjetoLocadora.Views
             }while(aux);
         }
         
-        public void MenuCrud(){
-            bool aux = true;
-            string[] menu = {
-                "1 - Cadastrar",
-                "2 - Alterar",
-                "3 - Remover",
-                "4 - Pesquisar...",
-                "0 - Voltar"};
+        // --------------------------------- CRUD -------------------------------------
 
-            do{
-                try{
-                    Clear();
-                    txt.WriteMenu(tituloMenu, menu);
-                    int opcao = Convert.ToInt32(ReadLine());
-
-                    switch(opcao){
-                        case 1:
-                            InserirItem();
-                            break;
-                        case 2:
-                            AlterarItem();
-                            break;
-                        case 3:
-                            RemoverItem();
-                            break;
-                        case 4:
-                            MenuPesquisa();
-                            break;
-                        case 0:
-                            aux = false;
-                            break;
-                        default:
-                            WriteLine("Opção inválida. Tente novamente.\n");
-                            aux = true;
-                            break;
-                    }
-                }catch{
-                    WriteLine("Erro. Tente novamente.\n");
-                }
-            }while(aux);
-        }   
-        
         private Item FormularioItem(bool generateId = true, int id=0){
             bool aux = true;
             Item item = new Item();
@@ -192,52 +158,10 @@ namespace ProjetoLocadora.Views
 
                 }
             }while(aux==true);
-        }     
+        }            
         
-        public void EmprestarItem(){
-            bool aux = true;
-            do{
-                try{
-                    WriteLine("Informe o ID do item a ser emprestado.");
-                    int itemId = Convert.ToInt32(ReadLine());
-                    WriteLine("Informe o ID do usuário que deseja emprestar o item.");
-                    int usuarioId = Convert.ToInt32(ReadLine());
-                    if(itemId==0)
-                        throw new Exception("");
-                    else{
-                        WriteLine(itemController.Emprestar(itemController.Retrieve(itemId, LocadoraId), usuarioId));
-                        ReadLine();
-                        aux = false;
-                    }
-                }catch{
-                    Clear();
-                    WriteLine("Houve um erro. Tente novamente.");
-                    break;
-                }
-            }while(aux==true);
-        }
-
-        public void DevolverItem(){
-            bool aux = true;
-            do{
-                try{
-                    WriteLine("Informe o ID do item a ser devolvido.");
-                    int itemId = Convert.ToInt32(ReadLine());
-                    if(itemId==0)
-                        throw new Exception("");
-                    else{
-                        WriteLine(itemController.Devolver(itemController.Retrieve(itemId, LocadoraId)));
-                        aux = false;
-                    }
-                }catch{
-                    Clear();
-                    WriteLine("Houve um erro. Tente novamente.");
-                    break;
-                }
-            }while(aux==true);
-            ReadLine();
-
-        }
+        // --------------------------------- LISTAGENS --------------------------------
+        
         private void ListarPorId(){
             bool aux = true;
             do{
@@ -246,6 +170,8 @@ namespace ProjetoLocadora.Views
                     int id = Convert.ToInt32(ReadLine());
                     Item item = itemController.Retrieve(id, LocadoraId);
                     if(item!=null){
+                        WriteLine(string.Format(Item.Formato, "ID", "Título", "Diretor(a)", "Gênero", "Tipo da obra",
+                        "Estúdio", "Data de lançamento", "Alteração em","Emprestado para"));
                         EscreverDados(item);
                     }
                     else
@@ -285,6 +211,9 @@ namespace ProjetoLocadora.Views
             WriteLine("Pressione enter para continuar...");
             ReadLine();
         }
+        
+        // --------------------------------- MENUS ------------------------------------
+        
         private void MenuPesquisa(){
             bool aux = true;
             string[] menuListagem = {"1 - Mostrar todos",
@@ -320,7 +249,6 @@ namespace ProjetoLocadora.Views
                 }
             }while(aux);
         }
-    
         private void MenuDados(){
             bool aux = true;
             string[] menuListagem = {"1 - Exportar para .txt",
@@ -353,6 +281,50 @@ namespace ProjetoLocadora.Views
             }while(aux);
             ReadLine();
         }
+        public void MenuCrud(){
+            bool aux = true;
+            string[] menu = {
+                "1 - Cadastrar",
+                "2 - Alterar",
+                "3 - Remover",
+                "4 - Pesquisar...",
+                "0 - Voltar"};
+
+            do{
+                try{
+                    Clear();
+                    txt.WriteMenu(tituloMenu, menu);
+                    int opcao = Convert.ToInt32(ReadLine());
+
+                    switch(opcao){
+                        case 1:
+                            InserirItem();
+                            break;
+                        case 2:
+                            AlterarItem();
+                            break;
+                        case 3:
+                            RemoverItem();
+                            break;
+                        case 4:
+                            MenuPesquisa();
+                            break;
+                        case 0:
+                            aux = false;
+                            break;
+                        default:
+                            WriteLine("Opção inválida. Tente novamente.\n");
+                            aux = true;
+                            break;
+                    }
+                }catch{
+                    WriteLine("Erro. Tente novamente.\n");
+                }
+            }while(aux);
+        }
+        
+        // --------------------------------- ARQUIVOS ----------------------------------
+
         public void ExportarDadosParaArquivo(){
             itemController.ExportToDelimited(LocadoraId);
         }
@@ -365,8 +337,54 @@ namespace ProjetoLocadora.Views
             WriteLine("Pressione Enter para continuar...");
             ReadLine();
         }
+        
+        // ------------------------- OUTRAS FUNÇÕES -------------------------------------
+        
         private void EscreverDados(Item item){
             WriteLine(item.ToString());
+        }
+        public void EmprestarItem(){
+            bool aux = true;
+            do{
+                try{
+                    WriteLine("Informe o ID do item a ser emprestado.");
+                    int itemId = Convert.ToInt32(ReadLine());
+                    WriteLine("Informe o ID do usuário que deseja emprestar o item.");
+                    int usuarioId = Convert.ToInt32(ReadLine());
+                    if(itemId==0)
+                        throw new Exception("");
+                    else{
+                        WriteLine(itemController.Emprestar(itemController.Retrieve(itemId, LocadoraId), usuarioId));
+                        ReadLine();
+                        aux = false;
+                    }
+                }catch{
+                    Clear();
+                    WriteLine("Houve um erro. Tente novamente.");
+                    break;
+                }
+            }while(aux==true);
+        }
+        public void DevolverItem(){
+            bool aux = true;
+            do{
+                try{
+                    WriteLine("Informe o ID do item a ser devolvido.");
+                    int itemId = Convert.ToInt32(ReadLine());
+                    if(itemId==0)
+                        throw new Exception("");
+                    else{
+                        WriteLine(itemController.Devolver(itemController.Retrieve(itemId, LocadoraId)));
+                        aux = false;
+                    }
+                }catch{
+                    Clear();
+                    WriteLine("Houve um erro. Tente novamente.");
+                    break;
+                }
+            }while(aux==true);
+            ReadLine();
+
         }
     }
 }

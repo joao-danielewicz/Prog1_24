@@ -9,10 +9,16 @@ using ProjetoLocadora.Utils;
 namespace ProjetoLocadora.Views
 {
     public class UsuarioView{
+
+        // --------------------------------- ATRIBUTOS -------------------------------
+
         private UsuarioController usuarioController;
         private int LocadoraId;
         private Texto txt;
         private string tituloMenu = "****** Menu dos Usuários ******";
+
+        // ------------------------- CONSTRUTORES E INICIALIZADOR ---------------------
+
         public UsuarioView(int locadoraId){
             usuarioController = new();
             txt = new();
@@ -52,47 +58,8 @@ namespace ProjetoLocadora.Views
                 }
             }while(aux);
         }
-        public void MenuCrud(){
-            bool aux = true;
-            string[] menu = {
-                "1 - Cadastrar",
-                "2 - Alterar",
-                "3 - Remover",
-                "4 - Pesquisar...",
-                "0 - Sair"};
-
-            do{
-                try{
-                    Clear();
-                    txt.WriteMenu(tituloMenu, menu);
-                    int opcao = Convert.ToInt32(ReadLine());
-
-                    switch(opcao){
-                        case 1:
-                            InserirUsuario();
-                            break;
-                        case 2:
-                            AlterarUsuario();
-                            break;
-                        case 3:
-                            RemoverUsuario();
-                            break;
-                        case 4:
-                            MenuPesquisa();
-                            break;
-                        case 0:
-                            aux = false;
-                            break;
-                        default:
-                            WriteLine("Opção inválida. Tente novamente.\n");
-                            aux = true;
-                            break;
-                    }
-                }catch{
-                    WriteLine("Erro. Tente novamente.\n");
-                }
-            }while(aux);
-        }   
+           
+        // --------------------------------- CRUD -------------------------------------
 
         private Usuario FormularioUsuario(bool generateId = true, int id=0){
             bool aux = true;
@@ -149,6 +116,8 @@ namespace ProjetoLocadora.Views
             }while(aux==true);
         }     
         
+        // --------------------------------- LISTAGENS --------------------------------
+
         private void ListarPorId(){
             bool aux = true;
             do{
@@ -157,6 +126,7 @@ namespace ProjetoLocadora.Views
                     int id = Convert.ToInt32(ReadLine());
                     Usuario usuario = usuarioController.Retrieve(id, LocadoraId);
                     if(usuario!=null){
+                        WriteLine(string.Format(Usuario.Formato, "ID", "Nome", "ID da Locadora"));
                         EscreverDados(usuario);
                     }
                     else
@@ -175,6 +145,7 @@ namespace ProjetoLocadora.Views
             if(usuarios.Count==0 || usuarios == null){
                 WriteLine("Nenhum usuário encontrado.");
             }else{
+                WriteLine(string.Format(Usuario.Formato, "ID", "Nome", "ID da Locadora"));
                 foreach(Usuario usuario in usuarios){
                     EscreverDados(usuario);
                 }
@@ -193,6 +164,9 @@ namespace ProjetoLocadora.Views
             WriteLine("Pressione enter para continuar...");
             ReadLine();
         }
+        
+        // --------------------------------- MENUS ------------------------------------
+        
         private void MenuPesquisa(){
             bool aux = true;
             string[] menuListagem = {"1 - Mostrar todos",
@@ -259,8 +233,50 @@ namespace ProjetoLocadora.Views
                 }
             }while(aux);
         }
+        public void MenuCrud(){
+            bool aux = true;
+            string[] menu = {
+                "1 - Cadastrar",
+                "2 - Alterar",
+                "3 - Remover",
+                "4 - Pesquisar...",
+                "0 - Voltar"};
 
+            do{
+                try{
+                    Clear();
+                    txt.WriteMenu(tituloMenu, menu);
+                    int opcao = Convert.ToInt32(ReadLine());
 
+                    switch(opcao){
+                        case 1:
+                            InserirUsuario();
+                            break;
+                        case 2:
+                            AlterarUsuario();
+                            break;
+                        case 3:
+                            RemoverUsuario();
+                            break;
+                        case 4:
+                            MenuPesquisa();
+                            break;
+                        case 0:
+                            aux = false;
+                            break;
+                        default:
+                            WriteLine("Opção inválida. Tente novamente.\n");
+                            aux = true;
+                            break;
+                    }
+                }catch{
+                    WriteLine("Erro. Tente novamente.\n");
+                }
+            }while(aux);
+        }
+
+        // --------------------------------- ARQUIVOS ----------------------------------
+        
         public void ExportarDadosParaArquivo(){
             usuarioController.ExportToDelimited(LocadoraId);
         }
@@ -273,6 +289,9 @@ namespace ProjetoLocadora.Views
             WriteLine("Pressione Enter para continuar...");
             ReadLine();
         }
+        
+        // ------------------------- OUTRAS FUNÇÕES -------------------------------------
+        
         private void EscreverDados(Usuario usuario){
             WriteLine(usuario.ToString());
         }

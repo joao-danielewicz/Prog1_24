@@ -16,7 +16,7 @@ static void Init(){
         "0 - Sair"};
 
     do{
-        // try{
+        try{
             Clear();
             txt.WriteMenu(tituloMenu, menu);
             int opcao = Convert.ToInt32(ReadLine());
@@ -36,9 +36,9 @@ static void Init(){
                     aux = true;
                     break;
             }
-        // }catch{
-        //     WriteLine("Erro. Tente novamente.\n");
-        // }
+        }catch{
+            WriteLine("Erro. Tente novamente.\n");
+        }
     }while(aux);
 
     void AcessoLocadora(){
@@ -46,8 +46,9 @@ static void Init(){
             bool aux = true;
             do{
                 WriteLine("Escolha uma das locadoras a seguir para realizar seu acesso.");
+                WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "", ""));
                 foreach(var loc in lc.RetrieveAll()){
-                    WriteLine($"{loc.LocadoraId} - {loc.Nome}");
+                    WriteLine(string.Format(Locadora.Formato, loc.LocadoraId, loc.Nome, "", ""));
                 }
                 try{
                     int locadoraId = Convert.ToInt32(ReadLine());
@@ -61,5 +62,4 @@ static void Init(){
             LocadoraView lv = new();
         }
     }
-
 }

@@ -15,7 +15,7 @@ namespace ProjetoLocadora.Models{
         public DateTime DataCadastro {get; set; } = DateTime.Now;
         public int LocadoraId {get; set; }
         public int UsuarioId {get; set; } = 0;
-        public static readonly string Formato = "{0, -3} {1, -45} {2,  -20} {3, -10} {4, -20} {5, -10} {6, -22} {7, -22} {8, -5}";
+        public static readonly string Formato = "{0, -3} {1, -45} {2,  -20} {3, -10} {4, -15} {5, -10} {6, -22} {7, -22} {8, -5}";
 
         public Item(){}
 
