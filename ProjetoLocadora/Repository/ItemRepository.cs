@@ -9,6 +9,7 @@ using System.Reflection.Metadata;
 namespace ProjetoLocadora.Repository
 {
     public class ItemRepository{
+        // --------------------------------- CRUD -------------------------------------
         public void Create(Item item, bool autoGenerateId = true){
             if(autoGenerateId)
                 item.ItemId = GetNextId();
@@ -55,6 +56,8 @@ namespace ProjetoLocadora.Repository
             }
         }
 
+        // ------------------------- OUTRAS FUNÇÕES -------------------------------------
+
         public bool Emprestar(Item item, int usuarioId){
             if(item.UsuarioId==0){
                 item.UsuarioId = usuarioId;
@@ -68,8 +71,6 @@ namespace ProjetoLocadora.Repository
             item.UsuarioId=0;
             Update(item);
         }
-
-
         private int GetNextId(){
             int id = 0;
             foreach(var item in DataSet.Itens){
@@ -79,8 +80,6 @@ namespace ProjetoLocadora.Repository
             }
             return ++id;
         }
-
-
         public bool ImportFromTxt(string line, string delimiter){
             if(string.IsNullOrWhiteSpace(line))
                 return false;

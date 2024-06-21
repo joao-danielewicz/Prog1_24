@@ -8,6 +8,7 @@ using ProjetoLocadora.Data;
 namespace ProjetoLocadora.Repository
 {
     public class UsuarioRepository{
+        // --------------------------------- CRUD -------------------------------------
         public void Create(Usuario usuario, bool autoGenerateId = true){
             if(autoGenerateId)
                 usuario.UsuarioId = this.GetNextId();
@@ -54,6 +55,8 @@ namespace ProjetoLocadora.Repository
             }
         }
         
+        // ------------------------- OUTRAS FUNÇÕES -------------------------------------
+
         private int GetNextId(){
             int id = 0;
             foreach(var usr in DataSet.Usuarios){
@@ -63,7 +66,6 @@ namespace ProjetoLocadora.Repository
             }
             return ++id;
         }
-
         public bool ImportFromTxt(string line, string delimiter){
             if(string.IsNullOrWhiteSpace(line))
                 return false;

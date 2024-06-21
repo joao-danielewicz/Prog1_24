@@ -10,11 +10,18 @@ namespace ProjetoLocadora.Controllers
 {
     public class LocadoraController
     {
+        
+        // ---------------------------------- ATRIBUTOS -------------------------------
+
         private LocadoraRepository lr;
+
+        // ---------------------------------- CONSTRUTORES -------------------------------
 
         public LocadoraController(){
             lr = new LocadoraRepository();
         }
+
+        // ---------------------------------- CRUD -------------------------------
 
         public void Insert(Locadora Locadora){
             lr.Create(Locadora);
@@ -35,13 +42,19 @@ namespace ProjetoLocadora.Controllers
             lr.Update(locadora);
         }
 
+        private readonly string[] CaminhoDadosBase = [@"Arquivos\DadosBaseTeste\loc.txt", @"Arquivos\DadosBaseTeste\usrs.txt", @"Arquivos\DadosBaseTeste\itens.txt"];
+        
+        // ---------------------------------- OUTRAS FUNÇÕES -------------------------------
+
         public List<Item> VerificarEmprestimos(int LocadoraId){
             return lr.ItensEmprestados(LocadoraId);
         }
-
         public int VerificarLocadoras(){
             return lr.Read().Count;
         }
+        
+        // ---------------------------------- ARQUIVOS -------------------------------
+
         public string ExportToDelimited(){
             List<Locadora> list = RetrieveAll();
 
@@ -56,17 +69,30 @@ namespace ProjetoLocadora.Controllers
             else
                 return "Erro na exportação dos dados.";
         }
-
-        public string ImportFromDelimited(string filePath, string delimiter){
+        public string ImportFromDelimited(string filePath, string delimiter, bool firstExec = false){
             bool result = true;
             string msgReturn = string.Empty;
             int lineCountSuccess = 0;
             int lineCountError = 0;
             int lineCountTotal = 0;
 
+            if(firstExec){
+                try{
+                    ItemController ic = new();
+                    UsuarioController uc = new();
+                    ImportFromDelimited(CaminhoDadosBase[0], ";");
+                    uc.ImportFromDelimited(CaminhoDadosBase[1], ";");
+                    ic.ImportFromDelimited(CaminhoDadosBase[2], ";");
+                }catch{
+                    return "Erro ao importar. Cadastre dados manualmente.";
+                }
+                return "Importação de dados preliminares concluída.";
+            }
+
             try {
-                if(!File.Exists(filePath))
+                if(!File.Exists(filePath)){
                     return "ERRO: Arquivo de importação não encontrado.";
+                }
 
                 using(StreamReader sr = new StreamReader(filePath)){
                     string line = string.Empty;

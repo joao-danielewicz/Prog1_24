@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace ProjetoLocadora.Utils
 {
     public class Texto{
+        // Escrever o título do menu e centralizar as linhas de opções que vierem abaixo dele.
         public void WriteMenu(string titulo, string[] msg){
             WriteLine(titulo);
             foreach(int i in titulo){

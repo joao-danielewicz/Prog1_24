@@ -10,13 +10,20 @@ namespace ProjetoLocadora.Controllers
 {
     public class ItemController
     {
+
+        // ---------------------------------- ATRIBUTOS -------------------------------
+
         private ItemRepository ir;
         private LocadoraController lc;
+
+        // ---------------------------------- CONSTRUTORES -------------------------------
 
         public ItemController(){
             ir = new ItemRepository();
             lc = new LocadoraController();
         }
+
+        // ---------------------------------- CRUD -------------------------------
 
         public void Insert(Item item){
             ir.Create(item);
@@ -37,6 +44,8 @@ namespace ProjetoLocadora.Controllers
             ir.Update(item);
         }
 
+        // ---------------------------------- OUTRAS FUNÇÕES -------------------------------
+
         public string Emprestar(Item item, int usuarioId){
             if(ir.Emprestar(item, usuarioId))
                 return "Item emprestado com sucesso.";
@@ -48,6 +57,7 @@ namespace ProjetoLocadora.Controllers
             return "Item devolvido com sucesso.";
         }
 
+        // ---------------------------------- ARQUIVOS -------------------------------
 
         public string ExportToDelimited(int locadoraId){
             List<Item> list = RetrieveAll(locadoraId);
@@ -55,8 +65,6 @@ namespace ProjetoLocadora.Controllers
             foreach(var item in list){
                 fileContent += $"{item.EscreverDadosDelimitados()}\n";
             }
-                WriteLine("banana");
-                ReadLine();
             string fileName = $"DUMP_Itens_{DateTimeOffset.Now.ToFileTime()}.txt";
             if(ExportarDados.SalvarParaTexto(fileName, fileContent, lc.Retrieve(locadoraId).Nome))
                 return "Exportação concluída com sucesso.";

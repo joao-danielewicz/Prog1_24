@@ -26,7 +26,7 @@ static void Init(){
                     AcessoLocadora();
                     break;
                 case 2:
-                    
+                    DadosPreliminares();
                     break;
                 case 0:
                     aux = false;
@@ -61,5 +61,9 @@ static void Init(){
             WriteLine("Nenhuma locadora encontrada. Por favor, cadastre uma para começar.");
             LocadoraView lv = new();
         }
+    }
+
+    void DadosPreliminares(){
+        LocadoraView lv = new(true);
     }
 }

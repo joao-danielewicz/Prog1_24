@@ -20,10 +20,14 @@ namespace ProjetoLocadora.Views
         private string tituloMenu = "****** Menu da Locadora ******";
 
         // ------------------------- CONSTRUTORES E INICIALIZADOR ---------------------
-
         public LocadoraView(){
             locadoraController = new();
             InserirLocadora();
+        }
+        public LocadoraView(bool firstExec){
+            locadoraController = new();
+            WriteLine(locadoraController.ImportFromDelimited("", "", true));
+            ReadLine();
         }
         public LocadoraView(int locadoraId){
             LocadoraId = locadoraId;
@@ -145,7 +149,7 @@ namespace ProjetoLocadora.Views
                     int id = Convert.ToInt32(ReadLine());
                     Locadora loc = locadoraController.Retrieve(id);
                     if(loc!=null){
-                        WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização", "Acervo"));
+                        WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização"));
                         EscreverDados(loc);
                     }
                     else
@@ -164,7 +168,7 @@ namespace ProjetoLocadora.Views
             if(locs.Count==0 || locs == null){
                 WriteLine("Nenhuma locadora encontrada.");
             }else{
-                WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização", "Acervo"));
+                WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização"));
                 foreach(Locadora loc in locs){
                     EscreverDados(loc);
                 }
@@ -174,7 +178,7 @@ namespace ProjetoLocadora.Views
         private void ListarTodos(){
             List<Locadora> list = locadoraController.RetrieveAll();
             if(list.Count!=0){
-                WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização", "Acervo"));
+                WriteLine(string.Format(Locadora.Formato, "ID", "Nome", "Localização"));
                 foreach (var i in list){
                     EscreverDados(i);
                 }

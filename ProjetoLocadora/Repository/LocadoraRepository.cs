@@ -8,6 +8,9 @@ using ProjetoLocadora.Data;
 namespace ProjetoLocadora.Repository
 {
     public class LocadoraRepository{
+
+        // --------------------------------- CRUD -------------------------------------
+        
         public void Create(Locadora locadora, bool autoGenerateId = true){
             if(autoGenerateId)
                 locadora.LocadoraId = GetNextId();
@@ -48,6 +51,8 @@ namespace ProjetoLocadora.Repository
             }
         }
 
+        // ------------------------- OUTRAS FUNÇÕES -------------------------------------
+
         public List<Item> ItensEmprestados(int locadoraId){
             List<Item> emprestados = new();
             foreach(Item item in DataSet.Itens){
@@ -56,8 +61,7 @@ namespace ProjetoLocadora.Repository
                 }
             }
             return emprestados;
-        }
-        
+        }      
         private int GetNextId(){
             int id = 0;
             foreach(var loc in DataSet.Locadoras){
@@ -67,7 +71,6 @@ namespace ProjetoLocadora.Repository
             }
             return ++id;
         }
-
         public bool ImportFromTxt(string line, string delimiter){
             if(string.IsNullOrWhiteSpace(line))
                 return false;
@@ -80,8 +83,7 @@ namespace ProjetoLocadora.Repository
             Locadora loc = new Locadora{
                 LocadoraId = Convert.ToInt32(data[0] == null ? 0 : data[0]),
                 Nome = data[1] == null ? string.Empty : data[1],
-                Localizacao = data[2] == null ? string.Empty : data[2],
-                Acervo = Convert.ToInt32(data[3] == null ? 0 : data[3])
+                Localizacao = data[2] == null ? string.Empty : data[2]
             };
 
             Create(loc, false);

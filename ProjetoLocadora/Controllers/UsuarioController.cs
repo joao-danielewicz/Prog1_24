@@ -10,12 +10,20 @@ namespace ProjetoLocadora.Controllers
 {
     public class UsuarioController
     {
+
+        // ---------------------------------- ATRIBUTOS -------------------------------
+
         private UsuarioRepository ur;
         private LocadoraController lc;
+
+        // ---------------------------------- CONSTRUTORES -------------------------------
+
         public UsuarioController(){
             ur = new UsuarioRepository();
             lc = new LocadoraController();
         }
+
+        // ---------------------------------- CRUD -------------------------------
 
         public void Insert(Usuario usuario){
             ur.Create(usuario);
@@ -36,6 +44,8 @@ namespace ProjetoLocadora.Controllers
             ur.Update(usuario);
         }
 
+        // ---------------------------------- ARQUIVOS -------------------------------
+
         public string ExportToDelimited(int locadoraId){
             List<Usuario> list = RetrieveAll(locadoraId);
             string fileContent = string.Empty;
@@ -49,7 +59,6 @@ namespace ProjetoLocadora.Controllers
             else
                 return "Erro na exportação dos dados.";
         }
-
         public string ImportFromDelimited(string filePath, string delimiter){
             bool result = true;
             string msgReturn = string.Empty;
